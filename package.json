@@ -1,0 +1,24 @@
+{
+  "name": "sandbox-algod",
+  "version": "1.0.0",
+  "description": "## Installation",
+  "main": "assetCreate.js",
+  "dependencies": {
+    "algosdk": "^1.8.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Smart-Chain-git/sandbox-algod.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Smart-Chain-git/sandbox-algod/issues"
+  },
+  "homepage": "https://github.com/Smart-Chain-git/sandbox-algod#readme"
+}

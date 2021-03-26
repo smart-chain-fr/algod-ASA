@@ -1,3 +1,5 @@
+const config = require('./config/config.js');
+
 /**
  * Ensure that all of the required environment variables are set, throws an error otherwise
  * @param {string[]} list
@@ -5,7 +7,7 @@
 function ensureEnvVariablesSet(list) {
   list.forEach((envVarName) => {
     // Throw an error if the variable is not defined
-    if (typeof process.env[envVarName] !== 'string') {
+    if (typeof config[envVarName] !== 'string') {
       throw new Error(`"${envVarName}" environment variable not set.`);
     }
   });
@@ -29,17 +31,17 @@ function retrieveBaseConfig() {
 
   // structure into objects
   const ALGOD_INSTANCE = {
-    token: process.env.ALGOD_TOKEN,
-    server: process.env.ALGOD_SERVER,
-    port: process.env.ALGOD_PORT && parseInt(process.env.ALGOD_PORT, 10),
+    token: config.ALGOD_TOKEN,
+    server: config.ALGOD_SERVER,
+    port: config.ALGOD_PORT && parseInt(config.ALGOD_PORT, 10),
   };
 
   const SENDER = {
-    mnemonic: process.env.SENDER_MNEMONIC,
+    mnemonic: config.SENDER_MNEMONIC,
   };
 
   const RECEIVER = {
-    mnemonic: process.env.RECEIVER_MNEMONIC,
+    mnemonic: config.RECEIVER_MNEMONIC,
   };
 
   // test for invalid configuration

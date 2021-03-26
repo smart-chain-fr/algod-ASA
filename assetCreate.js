@@ -13,17 +13,6 @@ const indexer_port = 8980;
 
 const indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
 
-(async () => {
-    let acct = "OKIPGN7D7SS6A7U5TG7ET3SI3EL6CPDTGIEEGE3PJHOVBP2WXHXYYV2AHY";
-    let accountInfo = await indexerClient.lookupAccountByID(acct).do();
-    console.log("Information for Account: " + JSON.stringify(accountInfo, undefined, 2));
-})().catch(e => {
-    console.log(e);
-    console.trace();
-});
-
-
-
 
 
 
@@ -51,8 +40,13 @@ async function main() {
   const { addr: reserveAddr } = algosdk.generateAccount(); // account that holds reserves for this asset
 
   const feePerByte = 10;
-  const firstValidRound = 39000;
-  const lastValidRound = 40000;
+
+
+  let status = await algodClient.status().do();
+  if (status == undefined) throw new Error("Unable to get node status");
+  const firstValidRound = status["last-round"] + 1;  
+  const lastValidRound = firstValidRound + 1000;
+
   const genesisHash = 'pXXY8psM8jgd8F/dUplcOGebnV50PFojR+YMRCtY/us=';
 
   const total = 100; // how many of this asset there will be

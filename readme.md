@@ -1,14 +1,20 @@
 # Sandbox
 
 ## Installation
-```
+
 install https://github.com/algorand/sandbox
+```
 npm install algosdk
 source .env
 ```
 ## See account list
 ```
 ./sandbox goal account list
+```
+```
+## See node status
+```
+./sandbox goal node status
 ```
 ## Enter algod container
 ```
