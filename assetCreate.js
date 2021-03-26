@@ -2,6 +2,7 @@
 
 
 const algosdk = require('algosdk');
+const utils = require('./utils');
 
 
 // Creating an indexer
@@ -26,53 +27,53 @@ const algodPort = 4001;
 
 let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
-const utils = require('./utils');
+
 
 const { SENDER } = utils.retrieveBaseConfig();
 
 async function main() {
-  const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
+    const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
 
-  // generate accounts
-  const { addr: freezeAddr } = algosdk.generateAccount(); // account that can freeze other accounts for this asset
-  const { addr: managerAddr } = algosdk.generateAccount(); // account able to update asset configuration
-  const { addr: clawbackAddr } = algosdk.generateAccount(); // account allowed to take this asset from any other account
-  const { addr: reserveAddr } = algosdk.generateAccount(); // account that holds reserves for this asset
+    // generate accounts
+    const { addr: freezeAddr } = algosdk.generateAccount(); // account that can freeze other accounts for this asset
+    const { addr: managerAddr } = algosdk.generateAccount(); // account able to update asset configuration
+    const { addr: clawbackAddr } = algosdk.generateAccount(); // account allowed to take this asset from any other account
+    const { addr: reserveAddr } = algosdk.generateAccount(); // account that holds reserves for this asset
 
-  const feePerByte = 10;
+    const feePerByte = 10;
 
 
-  let status = await algodClient.status().do();
-  if (status == undefined) throw new Error("Unable to get node status");
-  const firstValidRound = status["last-round"] + 1;  
-  const lastValidRound = firstValidRound + 1000;
+    let status = await algodClient.status().do();
+    if (status == undefined) throw new Error("Unable to get node status");
+    const firstValidRound = status["last-round"] + 1;  
+    const lastValidRound = firstValidRound + 1000;
 
-  const genesisHash = 'pXXY8psM8jgd8F/dUplcOGebnV50PFojR+YMRCtY/us=';
+    const genesisHash = 'pXXY8psM8jgd8F/dUplcOGebnV50PFojR+YMRCtY/us=';
 
-  const total = 100; // how many of this asset there will be
-  const decimals = 0; // units of this asset are whole-integer amounts
-  const assetName = 'assetname';
-  const unitName = 'unitname';
-  const url = 'website';
-  const metadata = new Uint8Array(
+    const total = 100; // how many of this asset there will be
+    const decimals = 0; // units of this asset are whole-integer amounts
+    const assetName = 'assetname';
+    const unitName = 'unitname';
+    const url = 'website';
+    const metadata = new Uint8Array(
     Buffer.from(
-      '664143504f346e52674f35356a316e64414b3357365367633441506b63794668',
-      'hex'
+        '664143504f346e52674f35356a316e64414b3357365367633441506b63794668',
+        'hex'
     )
-  ); // should be a 32-byte hash
-  const defaultFrozen = false; // whether accounts should be frozen by default
+    ); // should be a 32-byte hash
+    const defaultFrozen = false; // whether accounts should be frozen by default
 
-  // create suggested parameters
-  const suggestedParams = {
+    // create suggested parameters
+    const suggestedParams = {
     flatFee: false,
     fee: feePerByte,
     firstRound: firstValidRound,
     lastRound: lastValidRound,
     genesisHash,
-  };
+    };
 
-  // create the asset creation transaction
-  const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
+    // create the asset creation transaction
+    const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
     from: sender.addr,
     total,
     decimals,
@@ -88,21 +89,27 @@ async function main() {
     reserve: reserveAddr,
 
     suggestedParams,
-  });
+    });
 
-  // sign the transaction
-  const signedTxn = txn.signTxn(sender.sk);
+    // sign the transaction
+    const signedTxn = txn.signTxn(sender.sk);
 
-  // print transaction data
-  const decoded = algosdk.decodeSignedTransaction(signedTxn);
-  console.log(decoded);
+    // print transaction data
+    const decoded = algosdk.decodeSignedTransaction(signedTxn);
+    console.log(decoded);
 
-  let txId = txn.txID().toString();
-  console.log("Signed transaction with txID: %s", txId);
-  //submit the transaction
-  await algodClient.sendRawTransaction(signedTxn).do();
+    let txId = txn.txID().toString();
+    console.log("Signed transaction with txID: %s", txId);
+    //submit the transaction
+    await algodClient.sendRawTransaction(signedTxn).do();
 
-  const waitForConfirmation = async function (algodclient, txId, timeout) {
+
+
+    /**
+     * utility function to wait on a transaction to be confirmed
+     * the timeout parameter indicates how many rounds do you wish to check pending transactions for
+     */
+    const waitForConfirmation = async function (algodclient, txId, timeout) {
         // Wait until the transaction is confirmed or rejected, or until 'timeout'
         // number of rounds have passed.
         //     Args:
@@ -139,6 +146,36 @@ async function main() {
         throw new Error("Transaction not confirmed after " + timeout + " rounds!");
     };
 
+
+
+
+    // Wait for confirmation
+    let confirmedTxn = await waitForConfirmation(algodClient, txId, 12);
+    //Get the completed Transaction
+    console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
+
+
+
+    // Get the new asset's information from the creator account
+    let ptx = await algodclient.pendingTransactionInformation(tx.txId).do();
+    assetID = ptx["asset-index"];
+
+
+    (async () => {
+        let address = SENDER.addr;
+        let txid = txId; 
+        let response = await indexerClient.searchForTransactions()
+            .address(address)
+            .txid(txid).do();
+        console.log("txid:"+txId+" = " + JSON.stringify(response, undefined, 2));
+        }  
+    )().catch(e => {
+        console.log(e);
+        console.trace();
+    });
+
 }
+
+
 
 main().catch(console.error);
