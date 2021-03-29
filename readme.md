@@ -5,7 +5,7 @@
 install https://github.com/algorand/sandbox
 ```
 npm install algosdk
-source .env
+export NODE_ENV=development
 ```
 ## See account list
 ```
@@ -35,7 +35,7 @@ cd sandbox
 ./sandbox down
 ```
 
-## Create a token
+## Create a token after that you do the installation
 ```
 node assetCreate.js
 ```

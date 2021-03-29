@@ -1,6 +1,6 @@
 
 
-
+//const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils');
 
@@ -19,9 +19,10 @@ const indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer
 
 
 // sandbox
-const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const algodServer = "http://localhost";
-const algodPort = 4001;
+//var environnement 
+const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";//congif.ALGOD_TOKEN
+const algodServer = "http://localhost";//config.ALGOD_SERVER
+const algodPort = 4001;//config.ALGOD_PORT
 
 let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
@@ -31,9 +32,9 @@ const { SENDER } = utils.retrieveBaseConfig();
 
 
 
-async function main() {
+async function main(/*addressaccount*/) {
     const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
-
+    //modifier 
     // generate accounts
     const { addr: freezeAddr } = algosdk.generateAccount(); // account that can freeze other accounts for this asset
     const { addr: managerAddr } = algosdk.generateAccount(); // account able to update asset configuration
@@ -43,58 +44,59 @@ async function main() {
     const feePerByte = 10;
 
 
-    let status = await algodclient.status().do();
+    /* let status = await algodclient.status().do();
     if (status == undefined) throw new Error("Unable to get node status");
     var firstValidRound = status["last-round"] + 1;  
-    var lastValidRound = firstValidRound + 1000;
+    var lastValidRound = firstValidRound + 1000; */
 
     const params = await algodclient.getTransactionParams().do();
 
     //const genesisHash = 'pXXY8psM8jgd8F/dUplcOGebnV50PFojR+YMRCtY/us=';
 
-    firstValidRound = params['firstRound'];
-    lastValidRound = params['lastRound'];
+    const firstValidRound = params['firstRound'];
+    const lastValidRound = params['lastRound'];
     const genesisHash = params['genesisHash']
 
+    //faire en sorte que ce soit passer dans la fonctions en signature //const non obligatoire
     const total = 100; // how many of this asset there will be
     const decimals = 0; // units of this asset are whole-integer amounts
     const assetName = 'assetname';
     const unitName = 'unitname';
-    const url = 'website';
-    const metadata = new Uint8Array(
-    Buffer.from(
-        '664143504f346e52674f35356a316e64414b3357365367633441506b63794668',
-        'hex'
-    )
+    const url = 'website';//a mettre 
+    const metadata = new Uint8Array(//je doit remplir ou pas  r&d regarder 
+        Buffer.from(
+            '664143504f346e52674f35356a316e64414b3357365367633441506b63794668',
+            'hex'
+        )
     ); // should be a 32-byte hash
     const defaultFrozen = false; // whether accounts should be frozen by default
 
     // create suggested parameters
     const suggestedParams = {
-    flatFee: false,
-    fee: feePerByte,
-    firstRound: firstValidRound,
-    lastRound: lastValidRound,
-    genesisHash,
+        flatFee: false,
+        fee: feePerByte,
+        firstRound: firstValidRound,
+        lastRound: lastValidRound,
+        genesisHash,
     };
 
     // create the asset creation transaction
     const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
-    from: sender.addr,
-    total,
-    decimals,
-    assetName,
-    unitName,
-    assetURL: url,
-    assetMetadataHash: metadata,
-    defaultFrozen,
+        from: sender.addr,
+        total,
+        decimals,
+        assetName,
+        unitName,
+        assetURL: url,
+        assetMetadataHash: metadata,
+        defaultFrozen,
 
-    freeze: freezeAddr,
-    manager: managerAddr,
-    clawback: clawbackAddr,
-    reserve: reserveAddr,
+        freeze: freezeAddr,
+        manager: managerAddr,
+        clawback: clawbackAddr,
+        reserve: reserveAddr,
 
-    suggestedParams,
+        suggestedParams,
     });
 
     // sign the transaction
@@ -127,13 +129,14 @@ async function main() {
         if (algodclient == null || txId == null || timeout < 0) {
             throw "Bad arguments.";
         }
+        //uniformiser recuperer les variables comme la haut (1 si tu peu et 2 les récuperer)
         let status = (await algodclient.status().do());
         if (status == undefined) throw new Error("Unable to get node status");
-        let startround = status["last-round"] + 1;   
+        let startround = status["last-round"] + 1;
         let currentround = startround;
 
         while (currentround < (startround + timeout)) {
-            let pendingInfo = await algodclient.pendingTransactionInformation(txId).do();      
+            let pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
             if (pendingInfo != undefined) {
                 if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
                     //Got the completed Transaction
@@ -145,7 +148,7 @@ async function main() {
                         throw new Error("Transaction Rejected" + " pool error" + pendingInfo["pool-error"]);
                     }
                 }
-            } 
+            }
             await algodclient.statusAfterBlock(currentround).do();
             currentround++;
         }
