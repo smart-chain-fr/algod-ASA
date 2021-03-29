@@ -18,18 +18,18 @@ const indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer
 
 
 
-// Example: creating an asset
-
-
+// sandbox
 const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const algodServer = "http://localhost";
 const algodPort = 4001;
 
-let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
+let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 
 
 const { SENDER } = utils.retrieveBaseConfig();
+
+
 
 async function main() {
     const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
@@ -43,7 +43,7 @@ async function main() {
     const feePerByte = 10;
 
 
-    let status = await algodClient.status().do();
+    let status = await algodclient.status().do();
     if (status == undefined) throw new Error("Unable to get node status");
     const firstValidRound = status["last-round"] + 1;  
     const lastValidRound = firstValidRound + 1000;
@@ -101,7 +101,7 @@ async function main() {
     let txId = txn.txID().toString();
     console.log("Signed transaction with txID: %s", txId);
     //submit the transaction
-    await algodClient.sendRawTransaction(signedTxn).do();
+    await algodclient.sendRawTransaction(signedTxn).do();
 
 
 
@@ -150,29 +150,18 @@ async function main() {
 
 
     // Wait for confirmation
-    let confirmedTxn = await waitForConfirmation(algodClient, txId, 12);
+    let confirmedTxn = await waitForConfirmation(algodclient, txId, 3);
     //Get the completed Transaction
     console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
 
 
 
     // Get the new asset's information from the creator account
-    let ptx = await algodclient.pendingTransactionInformation(tx.txId).do();
+    let ptx = await algodclient.pendingTransactionInformation(txId).do();
     assetID = ptx["asset-index"];
+    console.log("AssetID = " + assetID);
 
 
-    (async () => {
-        let address = SENDER.addr;
-        let txid = txId; 
-        let response = await indexerClient.searchForTransactions()
-            .address(address)
-            .txid(txid).do();
-        console.log("txid:"+txId+" = " + JSON.stringify(response, undefined, 2));
-        }  
-    )().catch(e => {
-        console.log(e);
-        console.trace();
-    });
 
 }
 

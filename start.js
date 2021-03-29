@@ -4,12 +4,12 @@ const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 const algodServer = "http://localhost";
 const algodPort = 4001;
 
-let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
+let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 
 //Check node status
 (async () => {
-    console.log(await algodClient.status().do());
+    console.log(await algodclient.status().do());
 })().catch(e => {
     console.log(e);
 });
@@ -17,17 +17,10 @@ let algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 //Check suggested transaction parameters
 (async () => {
-    console.log(await algodClient.getTransactionParams().do());
+    console.log(await algodclient.getTransactionParams().do());
 })().catch(e => {
     console.log(e);
 });
-
-
-//Create account on Algo
-//var account = algosdk.generateAccount();
-//var passphrase = algosdk.secretKeyToMnemonic(account.sk);
-//console.log( "My address: " + account.addr );
-//console.log( "My passphrase: " + passphrase );
 
 
 
@@ -40,7 +33,7 @@ console.log("My address: %s", myAccount.addr);
 
 
 // (async () => {
-//     let accountInfo = (await algodClient.accountInformation(myAccount.addr).do());
+//     let accountInfo = (await algodclient.accountInformation(myAccount.addr).do());
 //     console.log("Account balance: %d microAlgos", accountInfo.amount);
 // })().catch(e => {
 //     console.log(e);
@@ -49,18 +42,10 @@ console.log("My address: %s", myAccount.addr);
 
 
 
-// //create account
-// let account = algosdk.generateAccount();
-// console.log("Account Address: ", account.addr);
-
-// let mn = algosdk.secretKeyToMnemonic(account.sk);
-// console.log("Account Mnemonic: ", mn);
-
-
 //information account
 (async () => {
     
-    let account_info = (await algodClient.accountInformation(myAccount.addr).do());
+    let account_info = (await algodclient.accountInformation(myAccount.addr).do());
     let acct_string = JSON.stringify(account_info);
     //console.log("Account Info: " + acct_string + "\n");
     
@@ -76,7 +61,7 @@ console.log("My address: %s", myAccount.addr);
 
 //send 1 Algo to the sink
 (async () => {
-    let params = await algodClient.getTransactionParams().do();
+    let params = await algodclient.getTransactionParams().do();
     // comment out the next two lines to use suggested fee
     params.fee = 1000;
     params.flatFee = true;
@@ -88,7 +73,7 @@ console.log("My address: %s", myAccount.addr);
     let txId = txn.txID().toString();
     console.log("Signed transaction with txID: %s", txId);
     //submit the transaction
-    await algodClient.sendRawTransaction(signedTxn).do();
+    await algodclient.sendRawTransaction(signedTxn).do();
 
 
     /**
@@ -136,7 +121,7 @@ console.log("My address: %s", myAccount.addr);
 
 
     // Wait for confirmation
-    let confirmedTxn = await waitForConfirmation(algodClient, txId, 4);
+    let confirmedTxn = await waitForConfirmation(algodclient, txId, 4);
     //Get the completed Transaction
     console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
     let mytxinfo = JSON.stringify(confirmedTxn.txn.txn, undefined, 2);

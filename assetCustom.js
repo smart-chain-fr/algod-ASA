@@ -73,12 +73,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
 };
 
 
-// Recover accounts
-// paste in mnemonic phrases here for each account
-
-// var account1_mnemonic = "PASTE your phrase for account 1";
-// var account2_mnemonic = "PASTE your phrase for account 2";
-// var account3_mnemonic = "PASTE your phrase for account 3"
+//accounts
 
 const { SENDER } = utils.retrieveBaseConfig();
 const { RECEIVER } = utils.retrieveBaseConfig();
@@ -95,12 +90,6 @@ console.log(recoveredAccount3.addr);
 // Instantiate the algod wrapper
 
     let algodclient = new algosdk.Algodv2(token, server, port);
-
-// Debug Console should look similar to this
-
-// ATTR6RUEHHBHXKUHT4GUOYWNBVDV2GJ5FHUWCSFZLHD55EVKZWOWSM7ABQ
-// AK6Q33PDO4RJZQPHEMODC6PUE5AR2UD4FBU6TNEJOU4UR4KC6XL5PWW5K4
-// IWR4CLLCN2TIVX2QPVVKVR5ER5OZGMWAV5QB2UIPYMPKBPLJZX4C37C4AA
 
 (async () => {
     // Asset Creation:
