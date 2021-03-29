@@ -8,12 +8,12 @@ const utils = require('./utils');
 // Creating an indexer
 
 
-const indexer_token = "";
+/* const indexer_token = "";
 const indexer_server = "http://localhost";
 const indexer_port = 8980;
 
 const indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
-
+ */
 
 
 
@@ -45,10 +45,16 @@ async function main() {
 
     let status = await algodclient.status().do();
     if (status == undefined) throw new Error("Unable to get node status");
-    const firstValidRound = status["last-round"] + 1;  
-    const lastValidRound = firstValidRound + 1000;
+    var firstValidRound = status["last-round"] + 1;  
+    var lastValidRound = firstValidRound + 1000;
 
-    const genesisHash = 'pXXY8psM8jgd8F/dUplcOGebnV50PFojR+YMRCtY/us=';
+    const params = await algodclient.getTransactionParams().do();
+
+    //const genesisHash = 'pXXY8psM8jgd8F/dUplcOGebnV50PFojR+YMRCtY/us=';
+
+    firstValidRound = params['firstRound'];
+    lastValidRound = params['lastRound'];
+    const genesisHash = params['genesisHash']
 
     const total = 100; // how many of this asset there will be
     const decimals = 0; // units of this asset are whole-integer amounts
