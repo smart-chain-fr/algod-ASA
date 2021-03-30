@@ -1,68 +1,51 @@
 
 
-//const config = require('./config/config.js');
+
+const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils');
 
-
-// Creating an indexer
-
-
-/* const indexer_token = "";
-const indexer_server = "http://localhost";
-const indexer_port = 8980;
-
-const indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
- */
-
-
-
-
-// sandbox
-//var environnement 
-const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";//congif.ALGOD_TOKEN
-const algodServer = "http://localhost";//config.ALGOD_SERVER
-const algodPort = 4001;//config.ALGOD_PORT
+const algodToken = congif.ALGOD_TOKEN;
+const algodServer = config.ALGOD_SERVER;
+const algodPort = config.ALGOD_PORT;
 
 let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 
-
 const { SENDER } = utils.retrieveBaseConfig();
 
-
-
-async function main(/*addressaccount*/) {
+/**
+ * Create an asset 
+ * @param {string} AddressCreator - address of the account that create the asset
+ * @param totalT - how many of this asset it will be availaible
+ * @param decimalsT -  units of this asset are whole-integer amounts
+ * @param assetNameT - token name
+ * @param unitnameT - shorten asset name
+ * @param urlS - website url
+ * @return {string} Asset ID and the Transaction ID in output
+*/
+async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitnameT,urlS ) {
     const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
-    //modifier 
-    // generate accounts
-    const { addr: freezeAddr } = algosdk.generateAccount(); // account that can freeze other accounts for this asset
-    const { addr: managerAddr } = algosdk.generateAccount(); // account able to update asset configuration
-    const { addr: clawbackAddr } = algosdk.generateAccount(); // account allowed to take this asset from any other account
-    const { addr: reserveAddr } = algosdk.generateAccount(); // account that holds reserves for this asset
+
+    const { addr: freezeAddr } = null;// account that can freeze other accounts for this asset
+    const { addr: managerAddr } = AddressCreator ;// account able to update asset configuration
+    const { addr: clawbackAddr } = null; // account allowed to take this asset from any other account
+    const { addr: reserveAddr } = null;// account that holds reserves for this asset
 
     const feePerByte = 10;
 
-
-    /* let status = await algodclient.status().do();
-    if (status == undefined) throw new Error("Unable to get node status");
-    var firstValidRound = status["last-round"] + 1;  
-    var lastValidRound = firstValidRound + 1000; */
-
     const params = await algodclient.getTransactionParams().do();
 
-    //const genesisHash = 'pXXY8psM8jgd8F/dUplcOGebnV50PFojR+YMRCtY/us=';
 
     const firstValidRound = params['firstRound'];
     const lastValidRound = params['lastRound'];
     const genesisHash = params['genesisHash'];
 
-    //faire en sorte que ce soit passer dans la fonctions en signature //const non obligatoire
-    const total = 100; // how many of this asset there will be
-    const decimals = 0; // units of this asset are whole-integer amounts
-    const assetName = 'assetname';
-    const unitName = 'unitname';
-    const url = 'website';//a mettre 
+    const total = totalT;
+    const decimals = decimalsT; 
+    const assetName = assetNameT; 
+    const unitName = unitnameT; 
+    const url = urlS;
     const metadata = new Uint8Array(//je doit remplir ou pas  r&d regarder 
         Buffer.from(
             '664143504f346e52674f35356a316e64414b3357365367633441506b63794668',
@@ -98,6 +81,7 @@ async function main(/*addressaccount*/) {
 
         suggestedParams,
     });
+    
 
     // sign the transaction
     const signedTxn = txn.signTxn(sender.sk);
@@ -111,16 +95,14 @@ async function main(/*addressaccount*/) {
     //submit the transaction
     await algodclient.sendRawTransaction(signedTxn).do();
 
-
-
-    /**
+     /**
      * utility function to wait on a transaction to be confirmed
      * the timeout parameter indicates how many rounds do you wish to check pending transactions for
      */
-    const waitForConfirmation = async function (algodclient, txId, timeout) {
+      const waitForConfirmation = async function (algodclient, txId, timeout) {
         // Wait until the transaction is confirmed or rejected, or until 'timeout'
         // number of rounds have passed.
-        //     Args:
+        // Args:
         // txId(str): the transaction to wait for
         // timeout(int): maximum number of rounds to wait
         // Returns:
@@ -129,6 +111,7 @@ async function main(/*addressaccount*/) {
         if (algodclient == null || txId == null || timeout < 0) {
             throw "Bad arguments.";
         }
+
         //uniformiser recuperer les variables comme la haut (1 si tu peu et 2 les récuperer)
         let status = (await algodclient.status().do());
         if (status == undefined) throw new Error("Unable to get node status");
@@ -155,9 +138,6 @@ async function main(/*addressaccount*/) {
         throw new Error("Transaction not confirmed after " + timeout + " rounds!");
     };
 
-
-
-
     // Wait for confirmation
     let confirmedTxn = await waitForConfirmation(algodclient, txId, 3);
     //Get the completed Transaction
@@ -170,10 +150,9 @@ async function main(/*addressaccount*/) {
     assetID = ptx["asset-index"];
     console.log("AssetID = " + assetID);
 
-
-
 }
+createAsset().catch(console.error);
 
-
-
-main().catch(console.error);
+module.exports = {
+    createAsset
+  }

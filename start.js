@@ -25,7 +25,7 @@ let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 
 
-const passphrase = "curtain pelican because start banner zebra tag harbor august flee scene dolphin beef snack vacuum choice palace leave parent find dose require silent ability rule";
+const passphrase = "okay immense monitor install seat tenant knife stomach bread acoustic plate tail bamboo bounce april black scatter rule interest dove double gesture stereo about thrive";
 
 let myAccount = algosdk.mnemonicToSecretKey(passphrase);
 console.log("My address: %s", myAccount.addr);
@@ -65,7 +65,7 @@ console.log("My address: %s", myAccount.addr);
     // comment out the next two lines to use suggested fee
     params.fee = 1000;
     params.flatFee = true;
-    const receiver = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A";
+    const receiver = "Q4U6M24HL6JQBXHH63JJIIVLXRXNWZBRJHQNAR6GEURACNIRZFZ4UACMAY";
     let note = algosdk.encodeObj("Hello World");
     let txn = algosdk.makePaymentTxnWithSuggestedParams(myAccount.addr, receiver, 1000000, undefined, note, params);        
     //sign the transaction

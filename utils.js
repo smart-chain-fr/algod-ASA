@@ -55,7 +55,7 @@ function retrieveBaseConfig() {
     )
   ) {
     throw new Error(
-      'Invalid configuration. Perhaps you forgot to source the environment file?'
+      'Invalid configuration.Perhaps you forgot to source the environment file?'
     );
   }
 
