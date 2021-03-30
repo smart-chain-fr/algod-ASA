@@ -142,7 +142,6 @@ async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitname
 
 }
 
-createAsset("KVDWUPF7WSYHFFMNQGCEGFVGARWV55GVINLGLEFEWF7WC3NTQ5SQM3FSUY", 1000000, 2, "test", "TST", "test.com").catch(console.error);
 
 //make possible to use the function in other js file
 module.exports = {
