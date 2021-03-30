@@ -1,6 +1,7 @@
 # Sandbox
 
-## Installation test
+## Installation
+# using assetcreate.js 
 
 install https://github.com/algorand/sandbox
 ```
@@ -8,6 +9,13 @@ npm install algosdk
 export NODE_ENV=development
 ```
 
+## Installation
+# using AssetCreate2.0.js
+```
+npm install algosdk
+export NODE_ENV=source
+
+```
 ## See account list
 ```
 ./sandbox goal account list
@@ -62,4 +70,17 @@ Redirect port 1234 to 9392 because 1234 is only bound locally (see netstat below
 
 Open Chrome Developer tools and visit the address displayed by tealdbg where 1234 is replaced by 9392.
 
+```
+
+#Using export function
+in your file.js (a new one)
+
+```
+//import the file where ther is the function
+const var = require("./fileRequire.js");
+
+console.log(var.fun1);
+
+//or if the signature is not empty
+console.log(var.fun(x));
 ```

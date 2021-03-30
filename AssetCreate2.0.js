@@ -145,8 +145,10 @@ async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitname
     console.log("AssetID = " + assetID);
 
 }
-createAsset().catch(console.error);
+//no real need
+//createAsset().catch(console.error);
 
+//make possible to use the function in other js file
 module.exports = {
-    createAsset
+    createAsset,
 };

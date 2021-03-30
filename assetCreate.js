@@ -30,9 +30,7 @@ let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 const { SENDER } = utils.retrieveBaseConfig();
 
-
-
-async function main(/*addressaccount*/) {
+async function main(a) {
     const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
     //modifier 
     // generate accounts
@@ -170,14 +168,10 @@ async function main(/*addressaccount*/) {
     assetID = ptx["asset-index"];
     console.log("AssetID = " + assetID);
 
-
-
+    console.log(a);
 }
 
-
-
-main().catch(console.error);
-
+//main().catch(console.error);
 module.exports = {
     main,
 };
