@@ -36,10 +36,10 @@ async function main(/*addressaccount*/) {
     const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
     //modifier 
     // generate accounts
-    const { addr: freezeAddr } = algosdk.generateAccount(); // account that can freeze other accounts for this asset
+    const { addr: freezeAddr } = ""; // account that can freeze other accounts for this asset
     const { addr: managerAddr } = algosdk.generateAccount(); // account able to update asset configuration
-    const { addr: clawbackAddr } = algosdk.generateAccount(); // account allowed to take this asset from any other account
-    const { addr: reserveAddr } = algosdk.generateAccount(); // account that holds reserves for this asset
+    const { addr: clawbackAddr } = ""; // account allowed to take this asset from any other account
+    const { addr: reserveAddr } = ""; // account that holds reserves for this asset
 
     const feePerByte = 10;
 

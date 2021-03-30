@@ -1,12 +1,13 @@
 # Sandbox
 
-## Installation
+## Installation test
 
 install https://github.com/algorand/sandbox
 ```
 npm install algosdk
 export NODE_ENV=development
 ```
+
 ## See account list
 ```
 ./sandbox goal account list
