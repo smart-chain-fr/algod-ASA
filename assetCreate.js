@@ -161,7 +161,7 @@ async function main(/*addressaccount*/) {
     // Wait for confirmation
     let confirmedTxn = await waitForConfirmation(algodclient, txId, 3);
     //Get the completed Transaction
-    console.log("Transaction " + txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
+    console.log("Transaction : " + txId + "\nConfirmed in round " + confirmedTxn["confirmed-round"]);
 
 
 
@@ -177,3 +177,7 @@ async function main(/*addressaccount*/) {
 
 
 main().catch(console.error);
+
+module.exports = {
+    main,
+};
