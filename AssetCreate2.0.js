@@ -1,12 +1,9 @@
-
-
-
 const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils');
 
 const algodToken = config.ALGOD_TOKEN;
-const algodServer = config.ALGOD_SERVER;
+const algodServer = config.ALGOD_SERVER; 
 const algodPort = config.ALGOD_PORT;
 
 let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
@@ -35,7 +32,6 @@ async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitname
     const feePerByte = 10;
 
     const params = await algodclient.getTransactionParams().do();
-
 
     const firstValidRound = params['firstRound'];
     const lastValidRound = params['lastRound'];
@@ -145,8 +141,8 @@ async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitname
     console.log("AssetID = " + assetID);
 
 }
-//no real need
-//createAsset().catch(console.error);
+
+createAsset("KVDWUPF7WSYHFFMNQGCEGFVGARWV55GVINLGLEFEWF7WC3NTQ5SQM3FSUY", 1000000, 2, "test", "TST", "test.com").catch(console.error);
 
 //make possible to use the function in other js file
 module.exports = {
