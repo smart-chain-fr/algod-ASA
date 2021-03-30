@@ -12,6 +12,7 @@ export NODE_ENV=development
 ## Installation
 # using AssetCreate2.0.js
 ```
+//no need to use sandbox
 npm install algosdk
 export NODE_ENV=source
 
