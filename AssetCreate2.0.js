@@ -5,7 +5,7 @@ const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils');
 
-const algodToken = congif.ALGOD_TOKEN;
+const algodToken = config.ALGOD_TOKEN;
 const algodServer = config.ALGOD_SERVER;
 const algodPort = config.ALGOD_PORT;
 
@@ -27,10 +27,10 @@ const { SENDER } = utils.retrieveBaseConfig();
 async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitnameT,urlS ) {
     const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
 
-    const { addr: freezeAddr } = null;// account that can freeze other accounts for this asset
+    const { addr: freezeAddr } = "";// account that can freeze other accounts for this asset
     const { addr: managerAddr } = AddressCreator ;// account able to update asset configuration
-    const { addr: clawbackAddr } = null; // account allowed to take this asset from any other account
-    const { addr: reserveAddr } = null;// account that holds reserves for this asset
+    const { addr: clawbackAddr } = ""; // account allowed to take this asset from any other account
+    const { addr: reserveAddr } = "";// account that holds reserves for this asset
 
     const feePerByte = 10;
 
@@ -88,31 +88,25 @@ async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitname
 
     // print transaction data
     const decoded = algosdk.decodeSignedTransaction(signedTxn);
-    console.log(decoded);
 
     let txId = txn.txID().toString();
-    console.log("Signed transaction with txID: %s", txId);
+
     //submit the transaction
     await algodclient.sendRawTransaction(signedTxn).do();
 
      /**
      * utility function to wait on a transaction to be confirmed
      * the timeout parameter indicates how many rounds do you wish to check pending transactions for
+     * @param {string} txId - the transaction to wait for
+     * @param timeout(int) - maximum number of rounds to wait
+     * @returns pending transaction information, or throws an error if the transaction is not confirmed or rejected in the next timeout rounds
      */
       const waitForConfirmation = async function (algodclient, txId, timeout) {
-        // Wait until the transaction is confirmed or rejected, or until 'timeout'
-        // number of rounds have passed.
-        // Args:
-        // txId(str): the transaction to wait for
-        // timeout(int): maximum number of rounds to wait
-        // Returns:
-        // pending transaction information, or throws an error if the transaction
-        // is not confirmed or rejected in the next timeout rounds
+          
         if (algodclient == null || txId == null || timeout < 0) {
             throw "Bad arguments.";
         }
 
-        //uniformiser recuperer les variables comme la haut (1 si tu peu et 2 les récuperer)
         let status = (await algodclient.status().do());
         if (status == undefined) throw new Error("Unable to get node status");
         let startround = status["last-round"] + 1;
@@ -155,4 +149,4 @@ createAsset().catch(console.error);
 
 module.exports = {
     createAsset
-  }
+}

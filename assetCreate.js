@@ -104,10 +104,10 @@ async function main(/*addressaccount*/) {
 
     // print transaction data
     const decoded = algosdk.decodeSignedTransaction(signedTxn);
-    console.log(decoded);
+    //console.log(decoded);
 
     let txId = txn.txID().toString();
-    console.log("Signed transaction with txID: %s", txId);
+    //console.log("Signed transaction with txID: %s", txId);
     //submit the transaction
     await algodclient.sendRawTransaction(signedTxn).do();
 
