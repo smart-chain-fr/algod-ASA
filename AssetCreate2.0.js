@@ -46,7 +46,7 @@ async function createAsset( AddressCreator,totalT ,decimalsT,assetNameT,unitname
     const assetName = assetNameT; 
     const unitName = unitnameT; 
     const url = urlS;
-    const metadata = new Uint8Array(//je doit remplir ou pas  r&d regarder 
+    const metadata = new Uint8Array(
         Buffer.from(
             '664143504f346e52674f35356a316e64414b3357365367633441506b63794668',
             'hex'
