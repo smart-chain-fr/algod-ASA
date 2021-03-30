@@ -20,7 +20,7 @@ export NODE_ENV=source
 ```
 ./sandbox goal account list
 ```
-```
+
 ## See node status
 ```
 ./sandbox goal node status
@@ -32,6 +32,7 @@ export NODE_ENV=source
 ## Export private key 
 ```
 ./sandbox goal account export -a LBLP7MHECZ5FL2JVRCDPLXN25WW3CLQLHDLSAUWNV4CGYAHYBHKNY2WNS4
+//random address use yours
 ```
 ## Launch Sandbox
 ```
@@ -72,7 +73,7 @@ Open Chrome Developer tools and visit the address displayed by tealdbg where 123
 
 ```
 
-#Using export function
+# Using export function
 in your file.js (a new one)
 
 ```
