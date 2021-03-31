@@ -6,4 +6,4 @@ createAccount.js
 createASA.js  
   
 Explorer pour vérifier sa transaction : https://testnet.algoexplorer.io/  
-Faucet pour récupérer des tokens : https://testnet.algoexplorer.io/  
+Faucet pour récupérer des tokens : https://bank.testnet.algorand.network/
