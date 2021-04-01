@@ -1,5 +1,6 @@
 const config = require('./config/config.js');
 const algosdk = require('algosdk');
+const utils = require('./utils')
 
 
 /**
@@ -16,6 +17,13 @@ const algosdk = require('algosdk');
 async function createASA(secret_key, assetName, unitName, total, decimals, assetURL) {
 
     if(argumentsVerification(secret_key, assetName, unitName, total, decimals, assetURL) == 1){
+
+        try {
+            utils.retrieveBaseConfig()
+        } catch (e) {
+            console.error(e)
+            return
+        }
 
         const algodToken = config.ALGOD_TOKEN;
         const algodServer = config.ALGOD_SERVER; 
