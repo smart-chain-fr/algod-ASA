@@ -1,17 +1,23 @@
+//testnet config
 const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils');
+// Import the filesystem module 
+const fs = require('fs');
 
+//sandbox
+/*
 const token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost";
-const port = 4001;
-// Import the filesystem module 
-const fs = require('fs'); 
+const port = 4001;*/
+const algodToken = config.ALGOD_TOKEN;
+const algodServer = config.ALGOD_SERVER; 
+const algodPort = config.ALGOD_PORT;
 
-const { SENDER } = utils.retrieveBaseConfig();
-const myAccount = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
+//const { SENDER } = utils.retrieveBaseConfig();
+//const myAccount = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
 
-console.log("My Address: " + myAccount.addr);
+//console.log("My Address: " + myAccount.addr);
 
 
 
@@ -32,9 +38,14 @@ const waitForConfirmation = async function (algodclient, txId) {
     }
 };
 // create an algod v2 client
-let algodclient = new algosdk.Algodv2(token, server, port);
+let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
-(async () => {
+//(async () => {
+async function SendToken(sender,receiver) {
+
+    const sendR = algosdk.mnemonicToSecretKey(sender);
+    const receivR = algosdk.mnemonicToSecretKey(receiver);
+
 
     // get suggested parameter
     let params = await algodclient.getTransactionParams().do();
@@ -86,13 +97,13 @@ let algodclient = new algosdk.Algodv2(token, server, port);
 
 
     // sign the logic signature with an account sk
-    lsig.sign(myAccount.sk);
+    lsig.sign(sendR.sk);
 
 
 
     // Setup a transaction
-    let sender = myAccount.addr;
-    let receiver = "QWMVCM5IXQCIM7SETMZWV3IIW5N7GPBYAUW7GH5NVTPCUTB23I2ES5CC3M";
+    let send = sendR.addr;
+    let receiv = receivR.addr;
     // let receiver = "<receiver-address>"";
     let amount = 10000;
     let closeToRemaninder = undefined;
@@ -114,7 +125,6 @@ let algodclient = new algosdk.Algodv2(token, server, port);
     console.log("Transaction : " + tx.txId);    
     await waitForConfirmation(algodclient, tx.txId);
 
-})().catch(e => {
-    console.log(e.body.message);
+}SendToken("curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant","exchange fat eye height amused peasant bread snap state author warm combine sock long quarter balance travel true stove bicycle else remind vendor absorb laugh").catch(e => {
     console.log(e);
 });
