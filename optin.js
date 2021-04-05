@@ -1,16 +1,23 @@
+const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils');
 
-const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+//sandbox
+/*const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const algodServer = "http://localhost";
-const algodPort = 4001;
+const algodPort = 4001;*/
+
+const algodToken = config.ALGOD_TOKEN;
+const algodServer = config.ALGOD_SERVER; 
+const algodPort = config.ALGOD_PORT;
 
 let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 
-const { SENDER } = utils.retrieveBaseConfig();
+//const { SENDER } = utils.retrieveBaseConfig();
 //const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
-const sender = algosdk.mnemonicToSecretKey("tape galaxy sign trade impose panther tone holiday test swallow social bargain pave speak skin decrease crater once mammal mail stool kit wolf abandon husband");
+//put your own mnemonic key below
+const sender = algosdk.mnemonicToSecretKey("curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant");
 
 
 // Opting in to an Asset:
@@ -25,7 +32,10 @@ const sender = algosdk.mnemonicToSecretKey("tape galaxy sign trade impose panthe
 // We will account for changing transaction parameters
 // before every transaction in this example
 
-(async () => {
+//(async () => {
+async function Optin(receiver) {
+    //ajout
+    const recev = algosdk.mnemonicToSecretKey(receiver);
 
     params = await algodclient.getTransactionParams().do();
     //comment out the next two lines to use suggested fee
@@ -37,7 +47,7 @@ const sender = algosdk.mnemonicToSecretKey("tape galaxy sign trade impose panthe
 
     let assetID = 37
     let senderAddress = sender.addr;
-    let recipient = sender.addr;
+    let recipient = recev.addr;
     // We set revocationTarget to undefined as 
     // This is not a clawback operation
     let revocationTarget = undefined;
@@ -60,7 +70,8 @@ const sender = algosdk.mnemonicToSecretKey("tape galaxy sign trade impose panthe
 
     let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
     console.log("Transaction : " + opttx.txId);
+    console.log("now you can do some exchange :)");
 
-})().catch(e => {
+}Optin("exchange fat eye height amused peasant bread snap state author warm combine sock long quarter balance travel true stove bicycle else remind vendor absorb laugh").catch(e => {
     console.log(e);
 });

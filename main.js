@@ -5,8 +5,8 @@ async function main() {
     let account = createAccount.createAccount(); 
     console.log(account)
 
-    let sk = ""
-    let newASA = await createASA.createASA(sk, "", "", 0, 0, "");
+    let sk = "curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant"
+    let newASA = await createASA.createASA(sk, "dbite", "DB", 1200000, 1, "website");
     console.log(newASA)
 }
 
