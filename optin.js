@@ -1,11 +1,6 @@
-const config = require('./config/config.js');
-const algosdk = require('algosdk');
+const config = require('./config/config.js')
+const algosdk = require('algosdk')
 const utils = require('./utils')
-
-//sandbox
-/*const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const algodServer = "http://localhost";
-const algodPort = 4001;*/
 
 const algodToken = config.ALGOD_TOKEN;
 const algodServer = config.ALGOD_SERVER; 
@@ -17,7 +12,7 @@ let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 //const { SENDER } = utils.retrieveBaseConfig();
 //const sender = algosdk.mnemonicToSecretKey(SENDER.mnemonic);
 //put your own mnemonic key below
-const sender = algosdk.mnemonicToSecretKey("curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant");
+//const sender = algosdk.mnemonicToSecretKey("curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant");
 
 
 // Opting in to an Asset:
@@ -31,10 +26,32 @@ const sender = algosdk.mnemonicToSecretKey("curious approve soup whale usage cor
 // First update changing transaction parameters
 // We will account for changing transaction parameters
 // before every transaction in this example
+function argumentsVerification(Myaccount,assetID){
+    if (
+        typeof Myaccount == 'string' &&  
+        typeof assetID == 'number'
+    ){
+        return 1
+    }
 
-async function Optin(myAccount, assetID) {
-    //ajout
-    const recev = algosdk.mnemonicToSecretKey(myAccount);
+    console.log("Error : Bad Arguments")
+    return 0
+}
+
+//(async () => {
+async function Optin(Myaccount,assetID) {
+
+
+    if(argumentsVerification (Myaccount,assetID) == 1){
+
+        try {
+            utils.retrieveBaseConfig()
+        } catch (e) {
+            console.error(e)
+            return
+        }
+           //ajout
+    const Myacc = algosdk.mnemonicToSecretKey(Myaccount);
 
     params = await algodclient.getTransactionParams().do();
     //comment out the next two lines to use suggested fee
@@ -43,9 +60,11 @@ async function Optin(myAccount, assetID) {
 
     let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
 
-
-    let senderAddress = myAccount.addr;
-    let recipient = myAccount.addr;
+    //asset id from your wallet
+    //let assetID = 15099374;
+    let senderAddress = Myacc.addr;
+    //let recipient = recev.addr;
+    recipient = senderAddress;
     // We set revocationTarget to undefined as 
     // This is not a clawback operation
     let revocationTarget = undefined;
@@ -62,13 +81,16 @@ async function Optin(myAccount, assetID) {
             amount, note, assetID, params);
 
     // Must be signed by the account wishing to opt in to the asset    
-    rawSignedTxn = opttxn.signTxn(sender.sk);
-
-
+    rawSignedTxn = opttxn.signTxn(Myacc.sk);
 
     let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-    console.log("Transaction : " + opttx.txId);
+    return {
+        "OpttxId": opttx.txId
+    }
 
-}Optin("exchange fat eye height amused peasant bread snap state author warm combine sock long quarter balance travel true stove bicycle else remind vendor absorb laugh").catch(e => {
-    console.log(e);
-});
+    }
+ 
+}
+module.exports = {
+    Optin,
+};
