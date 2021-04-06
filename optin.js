@@ -1,6 +1,6 @@
 const config = require('./config/config.js');
 const algosdk = require('algosdk');
-//utils unused
+const utils = require('./utils')
 
 //sandbox
 /*const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -32,10 +32,9 @@ const sender = algosdk.mnemonicToSecretKey("curious approve soup whale usage cor
 // We will account for changing transaction parameters
 // before every transaction in this example
 
-//(async () => {
-async function Optin(receiver) {
+async function Optin(myAccount, assetID) {
     //ajout
-    const recev = algosdk.mnemonicToSecretKey(receiver);
+    const recev = algosdk.mnemonicToSecretKey(myAccount);
 
     params = await algodclient.getTransactionParams().do();
     //comment out the next two lines to use suggested fee
@@ -44,10 +43,9 @@ async function Optin(receiver) {
 
     let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
 
-    //asset id from your wallet
-    let assetID = 15099374;
-    let senderAddress = sender.addr;
-    let recipient = recev.addr;
+
+    let senderAddress = myAccount.addr;
+    let recipient = myAccount.addr;
     // We set revocationTarget to undefined as 
     // This is not a clawback operation
     let revocationTarget = undefined;
@@ -70,7 +68,6 @@ async function Optin(receiver) {
 
     let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
     console.log("Transaction : " + opttx.txId);
-    console.log("now you can do some exchange :)");
 
 }Optin("exchange fat eye height amused peasant bread snap state author warm combine sock long quarter balance travel true stove bicycle else remind vendor absorb laugh").catch(e => {
     console.log(e);
