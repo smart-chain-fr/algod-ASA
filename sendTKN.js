@@ -1,8 +1,10 @@
-const algosdk = require('algosdk');
+const config = require('./config/config.js')
+const algosdk = require('algosdk')
+const utils = require('./utils')
 
-const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const algodServer = "http://localhost";
-const algodPort = 4001;
+const algodToken = config.ALGOD_TOKEN;
+const algodServer = config.ALGOD_SERVER; 
+const algodPort = config.ALGOD_PORT;
 
 let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
@@ -25,7 +27,7 @@ let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 
 
-const passphrase = "okay immense monitor install seat tenant knife stomach bread acoustic plate tail bamboo bounce april black scatter rule interest dove double gesture stereo about thrive";
+const passphrase = "exchange fat eye height amused peasant bread snap state author warm combine sock long quarter balance travel true stove bicycle else remind vendor absorb laugh";
 
 let myAccount = algosdk.mnemonicToSecretKey(passphrase);
 console.log("My address: %s", myAccount.addr);
@@ -65,7 +67,7 @@ console.log("My address: %s", myAccount.addr);
     // comment out the next two lines to use suggested fee
     params.fee = 1000;
     params.flatFee = true;
-    const receiver = "Q4U6M24HL6JQBXHH63JJIIVLXRXNWZBRJHQNAR6GEURACNIRZFZ4UACMAY";
+    const receiver = "J6HI4EAO7SDWSTXHJ4TWYR2KJ2MPQOS3LPMZ7G36HWU2TRPDOMEORT2NPU";
     let note = algosdk.encodeObj("Hello World");
     let txn = algosdk.makePaymentTxnWithSuggestedParams(myAccount.addr, receiver, 1000000, undefined, note, params);        
     //sign the transaction
