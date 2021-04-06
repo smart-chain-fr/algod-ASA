@@ -44,8 +44,8 @@ async function Optin(receiver) {
 
     let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
 
-
-    let assetID = 37
+    //asset id from your wallet
+    let assetID = 14964045;
     let senderAddress = sender.addr;
     let recipient = recev.addr;
     // We set revocationTarget to undefined as 

@@ -6,7 +6,7 @@ async function main() {
     console.log(account)
 
     let sk = "curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant"
-    let newASA = await createASA.createASA(sk, "dbite", "DB", 1200000, 1, "website");
+    let newASA = await createASA.createASA(sk, "SwordArtOrigin", "SAO", 100000, 1, "website");
     console.log(newASA)
 }
 
