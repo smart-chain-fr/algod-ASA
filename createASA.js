@@ -60,7 +60,7 @@ async function createASA(secret_key, assetName, unitName, total, decimals, asset
         
         // Sign the transaction
         const signedTxn = txn.signTxn(sender.sk);
-    
+
         // Submit the transaction
         let tx = await algodclient.sendRawTransaction(signedTxn).do();
     

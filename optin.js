@@ -1,6 +1,6 @@
 const config = require('./config/config.js');
 const algosdk = require('algosdk');
-const utils = require('./utils');
+//utils unused
 
 //sandbox
 /*const algodToken = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -45,7 +45,7 @@ async function Optin(receiver) {
     let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
 
     //asset id from your wallet
-    let assetID = 14964045;
+    let assetID = 15099374;
     let senderAddress = sender.addr;
     let recipient = recev.addr;
     // We set revocationTarget to undefined as 
