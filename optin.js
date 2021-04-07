@@ -66,7 +66,8 @@ async function Optin(secret_key,assetID) {
         // console.log("Transaction : " + tx.txId + "\nConfirmed in round " + confirmedTxn["confirmed-round"]);
         
         return {
-            "OptTxId": opttx.txId
+            "OptTxId": opttx.txId,
+            "confirmed round": confirmedTxn['confirmed-round']
         }
     }
  
