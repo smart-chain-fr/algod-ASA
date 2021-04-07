@@ -15,7 +15,7 @@ const utils = require('./utils')
 */
 async function createASA(secret_key, assetName, unitName, total, decimals, assetURL) {
 
-    if(argumentsVerification(secret_key, assetName, unitName, total, decimals, assetURL) == 1){
+    if(argumentsVerification(secret_key, assetName, unitName, total, decimals, assetURL) === 1){
 
         try {
             utils.retrieveBaseConfig()

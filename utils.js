@@ -68,7 +68,23 @@ function retrieveBaseConfig() {
   ])
 }
 
+/**
+  * utility function to check if a user has already owned this token and therefore is already opted in
+  * @param {string} address - address of the user we want to check
+  * @param assetID(int) - ID of the asset we want to check
+  * @returns returns true if already opted in returns undefined if not
+  */
+async function isAlreadyOptedIn(algodclient,address,assetID){
+  let accountInfo = await algodclient.accountInformation(address).do();
+  for (var asset of accountInfo.assets){
+    if (asset['asset-id']===assetID){
+      return true;
+    }
+  }
+}
+
 module.exports = {
     retrieveBaseConfig,
     waitForConfirmation,
+    isAlreadyOptedIn,
   }
