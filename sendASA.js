@@ -2,16 +2,12 @@ const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils');
 
-// Transfer New Asset:
-// we can tranfer tokens in from the creator
-// to another account
-
 /**
   * send the specified ASA to the specified user 
   * @param {string} send - sender's mnemonic
   * @param {string} receiver - receiver's address
-  * @param assetID(int) - ID of the asset to be sent
-  * @param amount(int) - amount of asset that has to be sent
+  * @param assetID(int) - ID of the ASA to be sent
+  * @param amount(int) - amount of ASA
   * @returns transaction hash and the round the transaction has been confirmed
   */
 async function SendASA(send,receiver,assetID,amount) {

@@ -3,37 +3,8 @@ const algosdk = require('algosdk')
 const utils = require('./utils')
 
 
-
-
-
-// Opting in to an Asset:
-// Opting in to transact with the new asset
-// Allow accounts that want recieve the new asset
-// Have to opt in. To do this they send an asset transfer
-// of the new asset to themseleves 
-// In this example we are setting up the 3rd recovered account to 
-// receive the new asset
-
-// First update changing transaction parameters
-// We will account for changing transaction parameters
-// before every transaction in this example
-
-
-function argumentsVerification(secret_key,assetID){
-    if (
-        typeof secret_key == 'string' &&  
-        typeof assetID == 'number'
-    ){
-        return 1
-    }
-
-    console.log("Error : Bad Arguments")
-    return 0
-}
-
-
 /**
- * Optin
+ * Optin : Allow Account to receive new ASA 
  * TODO : export NODE_ENV=source
  * @param {string} secret_key - memonic of the sender 
  * @param {string} assetID - token ID
@@ -82,8 +53,6 @@ async function Optin(secret_key,assetID) {
         // We are sending 0 assets
         amount = 0;
 
-
-
         // signing and sending "txn" allows sender to receive asset specified by creator and index
         let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(targetAcc.addr, targetAcc.addr, closeRemainderTo, revocationTarget,
                 amount, note, assetID, params);
@@ -97,11 +66,25 @@ async function Optin(secret_key,assetID) {
         // console.log("Transaction : " + tx.txId + "\nConfirmed in round " + confirmedTxn["confirmed-round"]);
         
         return {
-            "OpttxId": opttx.txId
+            "OptTxId": opttx.txId
         }
-        }
+    }
  
 }
+
+function argumentsVerification(secret_key,assetID){
+    if (
+        typeof secret_key == 'string' &&  
+        typeof assetID == 'number'
+    ){
+        return 1
+    }
+
+    console.log("Error : Bad Arguments")
+    return 0
+}
+
+
 module.exports = {
     Optin,
 };

@@ -3,13 +3,13 @@ const algosdk = require('algosdk')
 const utils = require('./utils')
 
 /**
-  * send the specified ASA to the specified user 
+  * send ALGO to specified user 
   * @param {string} send - sender's mnemonic
   * @param {string} receiver - receiver's address
-  * @param amount(int) - amount of asset that has to be sent
+  * @param {number} amount - amount of ALGO 
   * @returns transaction hash and the round the transaction has been confirmed
   */
-async function sendALGO(send,receiver,amount) {
+async function sendALGO(send, receiver, amount) {
     if (argumentsVerification(send, receiver, amount) === 1) {
         try {
             utils.retrieveBaseConfig()
@@ -43,9 +43,10 @@ async function sendALGO(send,receiver,amount) {
         let tx = await algodclient.sendRawTransaction(signedTxn).do();
         // Wait for confirmation
         let confirmedTxn = await utils.waitForConfirmation(algodclient, tx.txId, 3);
+
         return {
-            "txId":tx.txId,
-            "confirmed round":confirmedTxn['confirmed-round']
+            "txId": tx.txId,
+            "confirmed round": confirmedTxn['confirmed-round']
         }
     }
 }
