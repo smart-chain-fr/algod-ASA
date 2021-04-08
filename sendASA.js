@@ -3,12 +3,12 @@ const algosdk = require('algosdk');
 const utils = require('./utils');
 
 /**
-  * send the specified ASA to the specified user 
+  * Creates a transaction to send the specified ASA to the specified user 
   * @param {string} send - sender's mnemonic
   * @param {string} receiver - receiver's address
   * @param assetID(int) - ID of the ASA to be sent
   * @param amount(int) - amount of ASA
-  * @returns transaction hash and the round the transaction has been confirmed
+  * @returns unsigned transaction
   */
 async function SendASA(send,receiver,assetID,amount) {
     if (argumentsVerification(send, receiver, amount, assetID) === 1) {
@@ -41,21 +41,8 @@ async function SendASA(send,receiver,assetID,amount) {
         params.fee = 1000;
         params.flatFee = true;
         
-        // signing and sending "txn" will send "amount" assets from "sender" to "recipient"
-        let xtxn = await algosdk.makeAssetTransferTxnWithSuggestedParams(sender.addr, receiver, closeRemainderTo, revocationTarget,
+        return await algosdk.makeAssetTransferTxnWithSuggestedParams(sender.addr, receiver, closeRemainderTo, revocationTarget,
             amount, note, assetID, params);
-
-        // Must be signed by the account sending the asset  
-        rawSignedTxn = xtxn.signTxn(sender.sk)
-        let xtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-
-
-        // wait for transaction to be confirmed
-       let confirmedTxn = await utils.waitForConfirmation(algodclient, xtx.txId,3);
-       return {
-           "txId":xtx.txId,
-            "confirmed round":confirmedTxn['confirmed-round']
-       }
     }
         
 }

@@ -4,11 +4,10 @@ const utils = require('./utils')
 
 
 /**
- * Optin : Allow Account to receive new ASA 
- * TODO : export NODE_ENV=source
+ * Creates a transaction to receive new ASA 
  * @param {string} secret_key - memonic of the sender 
  * @param {string} assetID - token ID
- * @return {Object} Transaction ID 
+ * @return {Object} Unsigned transaction
 */
 async function Optin(secret_key,assetID) {
 
@@ -54,21 +53,8 @@ async function Optin(secret_key,assetID) {
         amount = 0;
 
         // signing and sending "txn" allows sender to receive asset specified by creator and index
-        let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(targetAcc.addr, targetAcc.addr, closeRemainderTo, revocationTarget,
-                amount, note, assetID, params);
-
-        // Must be signed by the account wishing to opt in to the asset    
-        rawSignedTxn = opttxn.signTxn(targetAcc.sk);
-        let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-
-        // Wait for confirmation
-        let confirmedTxn = await utils.waitForConfirmation(algodclient, opttx.txId,3);
-        // console.log("Transaction : " + tx.txId + "\nConfirmed in round " + confirmedTxn["confirmed-round"]);
-        
-        return {
-            "OptTxId": opttx.txId,
-            "confirmed round": confirmedTxn['confirmed-round']
-        }
+        return algosdk.makeAssetTransferTxnWithSuggestedParams(targetAcc.addr, targetAcc.addr, closeRemainderTo, revocationTarget,
+            amount, note, assetID, params);
     }
  
 }

@@ -3,11 +3,11 @@ const algosdk = require('algosdk')
 const utils = require('./utils')
 
 /**
-  * send ALGO to specified user 
+  * creates a transaction to send ALGO to specified user 
   * @param {string} send - sender's mnemonic
   * @param {string} receiver - receiver's address
   * @param {number} amount - amount of ALGO 
-  * @returns transaction hash and the round the transaction has been confirmed
+  * @returns the unsigned transaction
   */
 async function sendALGO(send, receiver, amount) {
     if (argumentsVerification(send, receiver, amount) === 1) {
@@ -36,18 +36,17 @@ async function sendALGO(send, receiver, amount) {
         // comment out the next two lines to use suggested fee
         params.fee = 1000;
         params.flatFee = true;
-        let txn = algosdk.makePaymentTxnWithSuggestedParams(sender.addr, receiver, amount, undefined, note, params);        
-        //sign the transaction
-        let signedTxn = txn.signTxn(sender.sk);
+        return algosdk.makePaymentTxnWithSuggestedParams(sender.addr, receiver, amount, undefined, note, params);        
+        /*/sign the transaction
+        return txn.signTxn(sender.sk);
         //submit the transaction
         let tx = await algodclient.sendRawTransaction(signedTxn).do();
         // Wait for confirmation
         let confirmedTxn = await utils.waitForConfirmation(algodclient, tx.txId, 3);
-
         return {
-            "txId": tx.txId,
-            "confirmed round": confirmedTxn['confirmed-round']
-        }
+            "txId":tx.txId,
+            "confirmed round":confirmedTxn['confirmed-round']
+        }*/
     }
 }
 
