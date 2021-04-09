@@ -33,7 +33,11 @@ async function Optin(secret_key,assetID) {
             console.log("Error : Bad secret_key")
             return 
         }
-
+        // Checks if user has already owned this asset
+        if (utils.isAlreadyOptedIn(algodclient,targetAcc.addr,assetID)){
+            console.log("Already opted in for this token")
+            return 
+        }
         // Define params
         params = await algodclient.getTransactionParams().do();
         //comment out the next two lines to use suggested fee

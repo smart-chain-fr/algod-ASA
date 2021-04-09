@@ -59,13 +59,17 @@ async function atomic(secret_key, receiver,assetId, amountASA) {
         
         // Sign the algo transaction
         signed.push(txgroup[0].signTxn(acc.sk))
-
-        // Signing the opt in with the customers key
-        signed.push(txgroup[1].signTxn(mnemonicToSecretKey(receiver.secret_key).sk))
-
-        // Sign the asa transaction
-        signed.push(txgroup[2].signTxn(acc.sk))
-
+        if (optin){
+            // Signing the opt in with the customers key
+            signed.push(txgroup[1].signTxn(mnemonicToSecretKey(receiver.secret_key).sk))
+    
+            // Sign the asa transaction
+            signed.push(txgroup[2].signTxn(acc.sk))
+        }
+        else{
+            // Sign the asa transaction
+            signed.push(txgroup[1].signTxn(acc.sk))
+        }
         // Broadcast the transactions
         let tx = (await algodClient.sendRawTransaction(signed).do());
 
