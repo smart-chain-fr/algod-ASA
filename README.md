@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # algod-ASA
 Node JS requis
 ## Création Wallet
@@ -33,4 +32,3 @@ Cette fonction crée un ASA. Elle prend en paramètre la clé mnemonique du cré
 
 ```atomic.atomic(sk,account,newASA.ASA_ID,10).catch(e=>{console.log(e)})```
 La fonction atomic transfer va regrouper 3 transactions. Elle prend en paramètre la clé mnemonique de l'envoyeur d'ASA `sk`, un objet compte (clé mnémonique et adresse publique) `account`, l'identifiant de l'ASA que l'on souhaite envoyer sur le compte `newASA.ASA_ID` ainsi que la quantité `10`. Le transfer atomic va regrouper l'envoie d'algo, l'optin et l'envoie d'ASA. L'avantage d'effectuer un transfert atomique est que si une des 3 transactions ne passe pas aucune ne passera, ce qui évite donc d'envoyer de l'algo ou de payer des frais pour rien.
->>>>>>> dev
