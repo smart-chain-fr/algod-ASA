@@ -50,7 +50,7 @@ async function sendALGO(send, receiver, amount) {
     }
 }
 
-function argumentsVerification(sender, receiver, amount, assetID){
+function argumentsVerification(sender, receiver, amount){
     if (
         typeof sender == 'string' && 
         typeof receiver == 'string' && 

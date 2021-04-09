@@ -11,7 +11,7 @@ async function main() {
     let newASA = await createASA.createASA(sk, "TEST", "TST", 210000000, 1, "test..");
     console.log("new ASA ",newASA)
 
-    let atomicTransfer = await atomic.atomic(sk,account,newASA.ASA_ID,10).catch(e=>{console.log(e)})
+    let atomicTransfer = await atomic.atomic(sk,account,newASA.ASA_ID,10)
     console.log("atomic transfer ",atomicTransfer)
 }
 
