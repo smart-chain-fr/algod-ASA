@@ -12,11 +12,10 @@ const { mnemonicToSecretKey } = require("algosdk");
   * @param {string} receiver - customer's account
   * @param {number} assetId - id of the asa
   * @param {number} amountASA - amount of ASA 
-  * @param {number} amountALGO - amount of ALGO 
   * @returns transaction hash and the round the transaction has been confirmed
   */
-async function atomic(secret_key, receiver,assetId, amountASA,amountALGO) {
-    if (argumentsVerification(secret_key, receiver,assetId, amountASA,amountALGO) === 1) {
+async function atomic(secret_key, receiver,assetId, amountASA) {
+    if (argumentsVerification(secret_key, receiver,assetId, amountASA) === 1) {
         try {
             utils.retrieveBaseConfig()
         } catch (e) {
@@ -33,7 +32,7 @@ async function atomic(secret_key, receiver,assetId, amountASA,amountALGO) {
         let transactions =[]
 
         // Creates the 1st transaction. It has to be first because the user needs algo to opt in
-        let sendAlgo=await sendALGO.sendALGO(secret_key,receiver.address,amountALGO)
+        let sendAlgo=await sendALGO.sendALGO(secret_key,receiver.address,201000)
         // Adds it to the array
         transactions.push(sendAlgo)
 
@@ -81,13 +80,12 @@ async function atomic(secret_key, receiver,assetId, amountASA,amountALGO) {
     }    
 }
 
-function argumentsVerification(secret_key, receiver,assetId, amountASA,amountALGO){
+function argumentsVerification(secret_key, receiver,assetId, amountASA){
     if (
         typeof secret_key == 'string' &&
         typeof receiver == 'object' &&
         typeof assetId == 'number' &&
-        typeof amountASA == 'number' &&
-        typeof amountALGO == 'number' 
+        typeof amountASA == 'number'
     ){
         return 1
     }

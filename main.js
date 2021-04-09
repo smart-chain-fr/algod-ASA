@@ -1,8 +1,5 @@
 const createAccount = require("./createAccount");
 const createASA = require("./createASA");
-const Optin = require("./optin")
-const sendASA = require('./sendASA')
-const sendALGO = require('./sendALGO')
 const atomic = require('./atomic')
 
 async function main() {
@@ -14,7 +11,7 @@ async function main() {
     let newASA = await createASA.createASA(sk, "TEST", "TST", 210000000, 1, "test..");
     console.log("new ASA ",newASA)
 
-    let atomicTransfer = await atomic.atomic(sk,account,newASA.ASA_ID,10,300000).catch(e=>{console.log(e)})
+    let atomicTransfer = await atomic.atomic(sk,account,newASA.ASA_ID,10).catch(e=>{console.log(e)})
     console.log("atomic transfer ",atomicTransfer)
 }
 
