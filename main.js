@@ -20,7 +20,7 @@ async function main() {
     console.log("new NFT  ",newNFT)
 
 
-    let atomicTransferNFT = await atomic.atomic(sk,account,newNFT.NFT_ID,1)
+    let atomicTransferNFT = await atomic.atomic(sk,account,newNFT.NFT_ID,1,"NFTurl")
     console.log("atomic transfer nft ",atomicTransferNFT)
 
 }
