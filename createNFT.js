@@ -8,12 +8,12 @@ const utils = require('./utils')
  * @param {string} secret_key - memonic of the sender 
  * @param {string} assetName - NFT name
  * @param {string} unitName - symbol of the NFT
- * @param {string} NFTURL - website url
+ * @param {string} assetURL - website url
  * @return {Object} NFT ID / Transaction ID 
 */
-async function createNFT(secret_key, assetName, unitName, NFTURL) {
+async function createNFT(secret_key, assetName, unitName, assetURL) {
 
-    if(argumentsVerification(secret_key, assetName, unitName,NFTURL) === 1){
+    if(argumentsVerification(secret_key, assetName, unitName, assetURL) === 1){
 
         try {
             utils.retrieveBaseConfig()
@@ -52,7 +52,7 @@ async function createNFT(secret_key, assetName, unitName, NFTURL) {
             decimals,
             assetName,
             unitName,
-            NFTURL,
+            assetURL,
     
         });
         
@@ -79,12 +79,12 @@ async function createNFT(secret_key, assetName, unitName, NFTURL) {
     }
 }
 
-function argumentsVerification(secret_key, assetName, unitName,NFTURL){
+function argumentsVerification(secret_key, assetName, unitName,assetURL){
     if (
         typeof secret_key == 'string' && 
         typeof assetName == 'string' && 
         typeof unitName == 'string' && 
-        typeof NFTURL == 'string'
+        typeof assetURL == 'string'
     ){
         return 1
     }
@@ -95,9 +95,3 @@ function argumentsVerification(secret_key, assetName, unitName,NFTURL){
 module.exports = {
     createNFT,
 };
-
-
-
-
-
-
