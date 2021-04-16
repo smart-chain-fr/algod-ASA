@@ -34,7 +34,7 @@ async function Optin(secret_key,assetID) {
             return 
         }
         // Checks if user has already owned this asset
-        if (utils.isAlreadyOptedIn(algodclient,targetAcc.addr,assetID)){
+        if (await utils.isAlreadyOptedIn(algodclient,targetAcc.addr,assetID)){
             console.log("Already opted in for this token")
             return 
         }
