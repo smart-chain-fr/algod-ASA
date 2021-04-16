@@ -40,7 +40,11 @@ async function createNFT(secret_key, assetName, unitName, url) {
         const suggestedParams = await algodclient.getTransactionParams().do();
         total = 1
         decimals = 0
-        const assetMetadataHash=url.slice(0,32)
+
+        // Separation of the CID
+        // 1st half in the metadata hash
+        const assetMetadataHash = url.slice(0,32)
+        // 2nd half in the url field
         const assetURL = url.slice(32,url.length)
         // Create the asset creation transaction
         const txn = makeAssetCreateTxnWithSuggestedParamsFromObject({
@@ -48,14 +52,12 @@ async function createNFT(secret_key, assetName, unitName, url) {
             suggestedParams,
             from: sender.addr, 
             manager: sender.addr,
-            //reserve: url,
             assetMetadataHash,
             total,
             decimals,
             assetName,
             unitName,
             assetURL
-    
         })
         
         // Sign the transaction
