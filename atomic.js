@@ -9,7 +9,7 @@ const { mnemonicToSecretKey } = require("algosdk");
 /**
   * Creates an atomic transfer which will send algos, opt in and send asa to a specified user 
   * @param {string} secret_key - our mnemonic
-  * @param {string} receiver - customer's account
+  * @param {Object} receiver - customer's account
   * @param {number} assetId - id of the asa
   * @param {number} amountASA - amount of ASA 
   * @returns transaction hash and the round the transaction has been confirmed
