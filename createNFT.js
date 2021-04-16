@@ -1,6 +1,7 @@
 const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils')
+const { makeAssetCreateTxnWithSuggestedParamsFromObject } = require('algosdk');
 
 /**
  * Create an asset 
@@ -8,12 +9,12 @@ const utils = require('./utils')
  * @param {string} secret_key - memonic of the sender 
  * @param {string} assetName - NFT name
  * @param {string} unitName - symbol of the NFT
- * @param {string} assetURL - website url
+ * @param {string} url - website url
  * @return {Object} NFT ID / Transaction ID 
 */
-async function createNFT(secret_key, assetName, unitName, assetURL) {
+async function createNFT(secret_key, assetName, unitName, url) {
 
-    if(argumentsVerification(secret_key, assetName, unitName, assetURL) === 1){
+    if(argumentsVerification(secret_key, assetName, unitName, url) === 1){
 
         try {
             utils.retrieveBaseConfig()
@@ -21,13 +22,13 @@ async function createNFT(secret_key, assetName, unitName, assetURL) {
             console.error(e)
             return
         }
-
+        
         const algodToken = config.ALGOD_TOKEN;
         const algodServer = config.ALGOD_SERVER; 
         const algodPort = config.ALGOD_PORT;
 
         let algodclient = new algosdk.Algodv2(algodToken, algodServer, algodPort); 
-
+        
         // Account recovery 
         const sender = algosdk.mnemonicToSecretKey(secret_key)
         if (!algosdk.isValidAddress(sender.addr)){
@@ -37,33 +38,34 @@ async function createNFT(secret_key, assetName, unitName, assetURL) {
     
         // Define params
         const suggestedParams = await algodclient.getTransactionParams().do();
-        const defaultFrozen = false; // whether accounts should be frozen by default
         total = 1
         decimals = 0
-    
+        const assetMetadataHash=url.slice(0,32)
+        const assetURL = url.slice(32,url.length)
         // Create the asset creation transaction
-        const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
+        const txn = makeAssetCreateTxnWithSuggestedParamsFromObject({
     
             suggestedParams,
             from: sender.addr, 
             manager: sender.addr,
-            
+            //reserve: url,
+            assetMetadataHash,
             total,
             decimals,
             assetName,
             unitName,
-            assetURL,
+            assetURL
     
-        });
+        })
         
         // Sign the transaction
         const signedTxn = txn.signTxn(sender.sk);
 
         // Submit the transaction
-        let tx = await algodclient.sendRawTransaction(signedTxn).do();
+        let tx = await algodclient.sendRawTransaction(signedTxn).do().catch(e=>{console.log(e)});
     
         // Wait for confirmation
-        let confirmedTxn = await utils.waitForConfirmation(algodclient, tx.txId, 3);
+        let confirmedTxn = await utils.waitForConfirmation(algodclient, tx.txId, 3)
         // console.log("Transaction : " + tx.txId + "\nConfirmed in round " + confirmedTxn["confirmed-round"]);
     
         // Get the ASA-ID 
@@ -79,12 +81,12 @@ async function createNFT(secret_key, assetName, unitName, assetURL) {
     }
 }
 
-function argumentsVerification(secret_key, assetName, unitName,assetURL){
+function argumentsVerification(secret_key, assetName, unitName,url){
     if (
         typeof secret_key == 'string' && 
         typeof assetName == 'string' && 
         typeof unitName == 'string' && 
-        typeof assetURL == 'string'
+        typeof url == 'string'
     ){
         return 1
     }
