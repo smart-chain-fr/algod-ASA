@@ -3,8 +3,7 @@ const fs = require('fs/promises');
 
 /**
  * Save the file in Ipfs
- * //verif si string
-* @param {string} filename - file's name
+ * @param {string} filename - file's name
  * @return {Object} URL
 */
 async function saveIpfs(filename){

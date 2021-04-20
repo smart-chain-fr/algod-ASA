@@ -6,10 +6,9 @@ const { sendALGO } = require("./sendALGO");
 const saveImg = require('./saveFile')
 
 async function main() {
-     let sk = "curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant"
+     //let sk = "curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant"
     //let sk = "exchange fat eye height amused peasant bread snap state author warm combine sock long quarter balance travel true stove bicycle else remind vendor absorb laugh"
-
-    //let sk = "rescue stock blade work vanish neck expire borrow dolphin insane immense awesome depth tree bamboo uniform direct fold tortoise mass remember next punch ability vicious"
+    let sk = "rescue stock blade work vanish neck expire borrow dolphin insane immense awesome depth tree bamboo uniform direct fold tortoise mass remember next punch ability vicious"
 
     let account = createAccount.createAccount(); 
     console.log("account ",account)
@@ -21,10 +20,14 @@ async function main() {
     let atomicTransfer = await atomic.atomic(sk,account,newASA.ASA_ID,10)
     console.log("atomic transfer ",atomicTransfer)
     
+    //your file name
     const filename= "wp2337041-blockchain-wallpapers.jpg"
-    const urlTxHash = await saveImg.saveIpfs(filename) //(await saveUrl.saveUrl(sk,filename)).txId
+
+    const urlTxHash = await saveImg.saveIpfs(filename)
     console.log(urlTxHash)//affiche un string normalement
-    let newNFT = await createNFT.createNFT(sk,"NFTTEST","NFTT",urlTxHash)//.catch(e=>{console.log(e)})
+
+    
+    let newNFT = await createNFT.createNFT(sk,"NFTTEST","NFTT",urlTxHash)
     console.log("new NFT  ",newNFT)
 
 

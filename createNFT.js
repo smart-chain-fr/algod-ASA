@@ -4,13 +4,11 @@ const utils = require('./utils')
 const { makeAssetCreateTxnWithSuggestedParamsFromObject } = require('algosdk');
 
 /**
- * Create an asset 
- * TODO : export NODE_ENV=source
  * @param {string} secret_key - memonic of the sender 
  * @param {string} assetName - NFT name
  * @param {string} unitName - symbol of the NFT
  * @param {string} cid - id file ipfs 
- * @return {Object} NFT ID / Transaction ID 
+ * @return {Object} NFT ID / Transaction ID / confirmed round
 */
 async function createNFT(secret_key, assetName, unitName, cid) {
 

@@ -66,12 +66,10 @@ async function createASA(secret_key, assetName, unitName, total, decimals, asset
     
         // Wait for confirmation
         let confirmedTxn = await utils.waitForConfirmation(algodclient, tx.txId, 3);
-        // console.log("Transaction : " + tx.txId + "\nConfirmed in round " + confirmedTxn["confirmed-round"]);
     
         // Get the ASA-ID 
         let ptx = await algodclient.pendingTransactionInformation(tx.txId).do();
         ASA_ID = ptx["asset-index"];
-        //console.log("ASA_ID = " + ASA_ID);
     
         return {
             "txId": tx.txId, 
