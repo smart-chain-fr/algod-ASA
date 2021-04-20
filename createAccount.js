@@ -1,14 +1,9 @@
 const algosdk = require('algosdk');
 
-/*
-* - Function Create an Algorand Account 
-* - No arguments 
-* - Return Object {
-*    "address": string, 
-     "secret_key": string
-*   }
-*/
-
+/**
+  * Creates an new Account 
+  * @returns {Object} the new Account : the address / the secret key
+  */
 function createAccount(){
     let account = algosdk.generateAccount();
     let memonic = algosdk.secretKeyToMnemonic(account.sk);

@@ -46,7 +46,6 @@ async function SendASA(send,receiver,assetID,amount) {
     }
         
 }
-
 function argumentsVerification(sender, receiver, amount, assetID){
     if (
         typeof sender == 'string' && 
@@ -59,7 +58,9 @@ function argumentsVerification(sender, receiver, amount, assetID){
     console.log("Error : Bad Arguments")
     return 0
 }
+
 module.exports = {
     SendASA,
 };
+
 

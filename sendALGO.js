@@ -28,25 +28,13 @@ async function sendALGO(send, receiver, amount) {
             return 
         }
 
-        // we don't want to add any extra data to the tx so undefined
-        let note = undefined;
 
         // Define params
         let params = await algodclient.getTransactionParams().do();
-        // comment out the next two lines to use suggested fee
         params.fee = 1000;
         params.flatFee = true;
+        let note = undefined;
         return algosdk.makePaymentTxnWithSuggestedParams(sender.addr, receiver, amount, undefined, note, params);        
-        /*/sign the transaction
-        return txn.signTxn(sender.sk);
-        //submit the transaction
-        let tx = await algodclient.sendRawTransaction(signedTxn).do();
-        // Wait for confirmation
-        let confirmedTxn = await utils.waitForConfirmation(algodclient, tx.txId, 3);
-        return {
-            "txId":tx.txId,
-            "confirmed round":confirmedTxn['confirmed-round']
-        }*/
     }
 }
 
@@ -54,7 +42,7 @@ function argumentsVerification(sender, receiver, amount){
     if (
         typeof sender == 'string' && 
         typeof receiver == 'string' && 
-        typeof amount == 'number'
+        typeof amount == 'number' 
     ){
         return 1
     }

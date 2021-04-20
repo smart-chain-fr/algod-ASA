@@ -4,6 +4,7 @@ const utils = require('./utils')
 const { makeAssetCreateTxnWithSuggestedParamsFromObject } = require('algosdk');
 
 /**
+ * Creates a NFT
  * @param {string} secret_key - memonic of the sender 
  * @param {string} assetName - NFT name
  * @param {string} unitName - symbol of the NFT
