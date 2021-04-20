@@ -2,7 +2,7 @@
 
 
 1. [Installation](#installation)
-    1. [Conditions](#condition)
+    1. [Vérification](#verification)
     2. [Récupération de token](#recupérationtk)
 2. [Fonctions](#fonction)
     1. [Demo main.js](#main)
@@ -20,7 +20,7 @@ faire la manipulation :
 export NODE_ENV=source
 ```
 
-## Conditions <a name="condition"></a>
+## vérification <a name="verification"></a>
 Explorer pour vérifier sa transaction : [testnet.algoexplorer](https://testnet.algoexplorer.io/)  
 
 ## Récupération de token <a name="recupérationtk"></a>
