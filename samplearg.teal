@@ -1,4 +1,9 @@
-arg_0
+arg 0
 btoi
 int 123
 ==
+
+//arg 0
+//byte
+//string "my string"
+//==
