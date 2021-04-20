@@ -77,7 +77,6 @@ function retrieveBaseConfig() {
 async function isAlreadyOptedIn(algodclient,address,assetID){
   let accountInfo = await algodclient.accountInformation(address).do();
   for (var asset of accountInfo.assets){
-    console.log(asset['asset-id']+" , "+assetID)
     if (asset['asset-id']===assetID){
       return true;
     }

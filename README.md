@@ -1,3 +1,13 @@
+# algod-ASA
+Node JS requis
+## Création Wallet
+createAccount.js  
+## Création ASA
+createASA.js  
+  
+Explorer pour vérifier sa transaction : https://testnet.algoexplorer.io/  
+Faucet pour récupérer des tokens : https://bank.testnet.algorand.network/
+=======
 # Algorand ASA Fidly
 
 ## Installation : Faire
@@ -16,10 +26,15 @@ Cette fonction ne prend aucun paramètre et renverra la clé mnémonique du comp
 ## Fonction création ASA
 
 ```createASA.createASA(sk, "TEST", "TST", 210000000, 1, "test..");```
+<<<<<<< HEAD
 Cette fonction crée un ASA. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `TEST`, le nom d'une unité de ce token `TST`, la quantité totale ce token `210000000` et une description `"test..."`.
+=======
+Cette fonction crée un ASA. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `TEST`, l'abréviation du token `tst`, la quantité totale du token `210000000` et le site web associé `"test.com"` (laisser `""` pour vide).
+>>>>>>> master
 
 ## Fonction Atomic transfert (ASA & NFT)
 
+<<<<<<< HEAD
 ```atomic.atomic(sk,account,newASA.ASA_ID,10)```
 
 ```atomic.atomic(sk,account,newNFT.NFT_ID,1)```
@@ -40,3 +55,7 @@ pour verifier que l'image est bien enregistrée (utiliser le lien sur un navigat
 
 ```createNFT.createNFT(sk,"NFTTEST","NFTT",cid)```
 Cette fonction crée un NFT avec une image enregistrée dans IPFS. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `NFTTEST`, le nom d'une unité de ce token `NFTT` et le cid du fichier sauvegardé sur IPFS  `cid` du NFT  sera séparé en deux pour que le l'image soit lié au NFT.Une partie du lien sera toujours une URL et l'autre partie  hashée .
+=======
+```atomic.atomic(sk,account,newASA.ASA_ID,10).catch(e=>{console.log(e)})```
+La fonction atomic transfer va regrouper 3 transactions. Elle prend en paramètre la clé mnemonique de l'envoyeur d'ASA `sk`, un objet compte correspondant au destinataire des ASA (clé mnémonique et adresse publique) `account`, l'identifiant de l'ASA que l'on souhaite envoyer sur le compte `newASA.ASA_ID` ainsi que la quantité `10`. Le transfer atomic va regrouper l'envoie d'algo, l'optin et l'envoie d'ASA. L'avantage d'effectuer un transfert atomique est que si une des 3 transactions ne passe pas aucune ne passera, ce qui évite donc d'envoyer de l'algo ou de payer des frais pour rien.
+>>>>>>> master

@@ -2,6 +2,7 @@ const config = require('./config/config.js');
 const algosdk = require('algosdk');
 const utils = require('./utils')
 
+
 /**
  * Create an asset 
  * TODO : export NODE_ENV=source

@@ -9,7 +9,7 @@ const { mnemonicToSecretKey } = require("algosdk");
 /**
   * Creates an atomic transfer which will send algos, opt in and send asa to a specified user 
   * @param {string} secret_key - our mnemonic
-  * @param {string} receiver - customer's account
+  * @param {Object} receiver - customer's account
   * @param {number} assetId - id of the asa
   * @param {number} amountASA - amount of ASA 
   * @returns transaction hash and the round the transaction has been confirmed
@@ -59,13 +59,17 @@ async function atomic(secret_key, receiver,assetId, amountASA) {
         
         // Sign the algo transaction
         signed.push(txgroup[0].signTxn(acc.sk))
-
-        // Signing the opt in with the customers key
-        signed.push(txgroup[1].signTxn(mnemonicToSecretKey(receiver.secret_key).sk))
-
-        // Sign the asa transaction
-        signed.push(txgroup[2].signTxn(acc.sk))
-
+        if (optin){
+            // Signing the opt in with the customers key
+            signed.push(txgroup[1].signTxn(mnemonicToSecretKey(receiver.secret_key).sk))
+    
+            // Sign the asa transaction
+            signed.push(txgroup[2].signTxn(acc.sk))
+        }
+        else{
+            // Sign the asa transaction
+            signed.push(txgroup[1].signTxn(acc.sk))
+        }
         // Broadcast the transactions
         let tx = (await algodClient.sendRawTransaction(signed).do());
 
