@@ -20,7 +20,7 @@ faire la manipulation :
 export NODE_ENV=source
 ```
 
-## vérification <a name="verification"></a>
+## vérification <a name="Verification"></a>
 Explorer pour vérifier sa transaction : [testnet.algoexplorer](https://testnet.algoexplorer.io/)  
 
 ## Récupération de token <a name="recupérationtk"></a>
