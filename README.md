@@ -20,7 +20,7 @@ faire la manipulation :
 export NODE_ENV=source
 ```
 
-## vérification <a name="Verification"></a>
+## Vérification <a name="verification"></a>
 Explorer pour vérifier sa transaction : [testnet.algoexplorer](https://testnet.algoexplorer.io/)  
 
 ## Récupération de token <a name="recupérationtk"></a>
@@ -76,4 +76,4 @@ pour verifier que l'image est bien enregistrée (utiliser le lien sur un navigat
 ```js
 createNFT.createNFT(sk,"NFTTEST","NFTT",cid)
 ```
-Cette fonction crée un NFT avec une image enregistrée dans IPFS. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `NFTTEST`, le nom d'une unité de ce token `NFTT` et le cid du fichier sauvegardé sur IPFS  `cid` du NFT  sera séparé en deux pour que le l'image soit lié au NFT.Une partie du lien sera toujours une URL et l'autre partie  hashée .
+Cette fonction crée un NFT avec une image enregistrée dans IPFS. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `NFTTEST`, le nom d'une unité de ce token `NFTT` et le cid du fichier sauvegardé sur IPFS  `cid` du NFT  sera séparé en deux pour que le l'image soit lié au NFT.Une partie du lien sera toujours une URL et l'autre partie  hashée.
