@@ -82,10 +82,10 @@ async function atomic(secret_key, receiver,assetId, amountASA) {
 
 function argumentsVerification(secret_key, receiver,assetId, amountASA){
     if (
-        typeof secret_key == 'string' &&
-        typeof receiver == 'object' &&
-        typeof assetId == 'number' &&
-        typeof amountASA == 'number'
+        typeof secret_key === 'string' &&
+        typeof receiver === 'object' &&
+        typeof assetId === 'number' &&
+        typeof amountASA === 'number'
     ){
         return 1
     }

@@ -29,13 +29,13 @@ La fonction atomic transfer va regrouper 3 transactions. Elle prend en paramètr
 ## Fonction enregistrement de l'image dans IPFS
 
 ```saveFile.saveIpfs(filename) ```
-Cette fonction ajoute l'image ```filename``` à la blockchain ipfs et nous rend sous forme de string le HASH pour accedé à l'image .
+Cette fonction ajoute l'image ```filename``` à la blockchain ipfs et nous rend sous forme de string le CID (content identifier) pour acceder à l'image .
 
-pour verifier que l'image est bien enregistrée (utiliser le lien sur google ou brave):
-    `https://ipfs.io/ipfs/YOUR_IPFS_HASH`
+pour verifier que l'image est bien enregistrée (utiliser le lien sur un navigateur):
+    `https://ipfs.io/ipfs/YOUR_IPFS_CID`
 
 
 ## Fonction création de NFT
 
 ```createNFT.createNFT(sk,"NFTTEST","NFTT",urlTxHash)```
-Cette fonction crée un NFT avec une image enregistrée dans IPFS. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `NFTTEST`, le nom d'une unité de ce token `NFTT` et l'URL  `urlTxHash` du NFT  sera séparer en deux pour que le l'image soit lié au NFT.Une partie du lien sera toujours une URL et l'autre partie  hashée .
+Cette fonction crée un NFT avec une image enregistrée dans IPFS. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `NFTTEST`, le nom d'une unité de ce token `NFTT` et le cid du fichier sauvegardé sur IPFS  `cid` du NFT  sera séparé en deux pour que le l'image soit lié au NFT.Une partie du lien sera toujours une URL et l'autre partie  hashée .

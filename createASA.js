@@ -10,12 +10,11 @@ const utils = require('./utils')
  * @param {string} unitName - symbol of the token 
  * @param {number} total - supply
  * @param {number} decimals - decimals
- * @param {string} assetURL - website url
  * @return {Object} Asset ID / Transaction ID 
 */
-async function createASA(secret_key, assetName, unitName, total, decimals, assetURL) {
+async function createASA(secret_key, assetName, unitName, total, decimals) {
 
-    if(argumentsVerification(secret_key, assetName, unitName, total, decimals, assetURL) === 1){
+    if(argumentsVerification(secret_key, assetName, unitName, total, decimals) === 1){
 
         try {
             utils.retrieveBaseConfig()
@@ -54,8 +53,6 @@ async function createASA(secret_key, assetName, unitName, total, decimals, asset
             decimals,
             assetName,
             unitName,
-            assetURL,
-    
         });
         
         // Sign the transaction
@@ -79,14 +76,13 @@ async function createASA(secret_key, assetName, unitName, total, decimals, asset
     }
 }
 
-function argumentsVerification(secret_key, assetName, unitName, total, decimals, assetURL){
+function argumentsVerification(secret_key, assetName, unitName, total, decimals){
     if (
         typeof secret_key == 'string' && 
         typeof assetName == 'string' && 
         typeof unitName == 'string' && 
         typeof total == 'number' &&
-        typeof decimals == 'number' && 
-        typeof assetURL == 'string'
+        typeof decimals == 'number'
     ){
         if (decimals > 0 && decimals < 19) {
             return 1
