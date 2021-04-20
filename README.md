@@ -1,3 +1,6 @@
+# Algorand fidly
+
+
 1. [Installation](#installation)
     1. [Conditions](#condition)
     2. [Récupération de token](#recupérationtk)
@@ -9,7 +12,6 @@
     5. [Enregistrement de l'image dans IPFS](#IPFS)
     6. [Création de NFT](#NFT)
 
-# Algorand fidly
 
 # Installation <a name="installation"></a>
 Node JS requis
