@@ -4,7 +4,7 @@ const fs = require('fs/promises');
 /**
  * Save the file in Ipfs
  * @param {string} filename - file's name
- * @return {Object} URL
+ * @return {string} hash of ipfs file which has been saved
 */
 async function saveIpfs(filename){
     const ipfsAddOptions = {
