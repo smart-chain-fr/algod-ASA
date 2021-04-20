@@ -8,23 +8,23 @@ const saveFile = require('./saveFile')
 async function main() {
     //let sk = "curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant"
     //let sk = "exchange fat eye height amused peasant bread snap state author warm combine sock long quarter balance travel true stove bicycle else remind vendor absorb laugh"
-    //let sk = "rescue stock blade work vanish neck expire borrow dolphin insane immense awesome depth tree bamboo uniform direct fold tortoise mass remember next punch ability vicious"
+    let sk = "rescue stock blade work vanish neck expire borrow dolphin insane immense awesome depth tree bamboo uniform direct fold tortoise mass remember next punch ability vicious"
 
     let account = createAccount.createAccount(); 
     console.log("account ",account)
 
     //use your mnemonic
-    let newASA = await createASA.createASA(sk, "BOB", "BBY", 20000000, 1, "test..").catch(e =>{console.log(e)});
+    let newASA = await createASA.createASA(sk, "TEST", "TST", 210000000, 1, "test..");
     console.log("new ASA ",newASA)
 
-    let atomicTransfer = await atomic.atomic(sk,{secret_key:"rescue stock blade work vanish neck expire borrow dolphin insane immense awesome depth tree bamboo uniform direct fold tortoise mass remember next punch ability vicious",address:"7IPIZ3JSB27EEWALVOPXX2DULZBSRRDCLOHHVM5P25HVXEXAK6Y34ROQPQ"},15148354,10)
+    let atomicTransfer = await atomic.atomic(sk,account,newASA.ASA_ID,10)
     console.log("atomic transfer ",atomicTransfer)
     
     //your file name
     const filename= "image.jpg"
 
     const cid = await saveFile.saveIpfs(filename)
-    console.log('CID ',cid)
+    console.log('Content ID : ',cid)
     
     let newNFT = await createNFT.createNFT(sk,"NFTTEST","NFTT",cid)
     console.log("new NFT  ",newNFT)

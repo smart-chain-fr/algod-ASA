@@ -26,7 +26,6 @@ Explorer pour vérifier sa transaction : [testnet.algoexplorer](https://testnet.
 ## Récupération de token <a name="recupérationtk"></a>
 Faucet pour récupérer des tokens : [testnet.algorand.network](https://bank.testnet.algorand.network/)
 
-=======
 
 # Fonctions <a name="fonction"></a>
 
