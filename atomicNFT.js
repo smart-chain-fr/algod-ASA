@@ -1,6 +1,6 @@
 const sendALGO = require('./sendALGO')
 const createNFT = require('./createNFT')
-const saveImg = require('./saveImg')
+const saveImg = require('./saveFile')
 const algosdk = require('algosdk')
 const config = require('./config/config.js');
 const utils = require('./utils');

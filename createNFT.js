@@ -9,12 +9,12 @@ const { makeAssetCreateTxnWithSuggestedParamsFromObject } = require('algosdk');
  * @param {string} secret_key - memonic of the sender 
  * @param {string} assetName - NFT name
  * @param {string} unitName - symbol of the NFT
- * @param {string} url - website url
+ * @param {string} cid - id file ipfs 
  * @return {Object} NFT ID / Transaction ID 
 */
-async function createNFT(secret_key, assetName, unitName, url) {
+async function createNFT(secret_key, assetName, unitName, cid) {
 
-    if(argumentsVerification(secret_key, assetName, unitName, url) === 1){
+    if(argumentsVerification(secret_key, assetName, unitName, cid) === 1){
 
         try {
             utils.retrieveBaseConfig()
@@ -43,9 +43,9 @@ async function createNFT(secret_key, assetName, unitName, url) {
 
         // Separation of the CID
         // 1st half in the metadata hash
-        const assetMetadataHash = url.slice(0,32)
-        // 2nd half in the url field
-        const assetURL = url.slice(32,url.length)
+        const assetMetadataHash = cid.slice(0,32)
+        // 2nd half in the cid field
+        const assetURL = cid.slice(32,cid.length)
         // Create the asset creation transaction
         const txn = makeAssetCreateTxnWithSuggestedParamsFromObject({
     
@@ -83,12 +83,12 @@ async function createNFT(secret_key, assetName, unitName, url) {
     }
 }
 
-function argumentsVerification(secret_key, assetName, unitName,url){
+function argumentsVerification(secret_key, assetName, unitName,cid){
     if (
         typeof secret_key == 'string' && 
         typeof assetName == 'string' && 
         typeof unitName == 'string' && 
-        typeof url == 'string'
+        typeof cid == 'string'
     ){
         return 1
     }

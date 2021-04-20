@@ -9,8 +9,8 @@ const utils = require('./utils')
   * @param {number} amount - amount of ALGO 
   * @returns the unsigned transaction
   */
-async function sendALGO(send, receiver, amount,note) {
-    if (argumentsVerification(send, receiver, amount,note) === 1) {
+async function sendALGO(send, receiver, amount) {
+    if (argumentsVerification(send, receiver, amount) === 1) {
         try {
             utils.retrieveBaseConfig()
         } catch (e) {
@@ -34,7 +34,7 @@ async function sendALGO(send, receiver, amount,note) {
         // comment out the next two lines to use suggested fee
         params.fee = 1000;
         params.flatFee = true;
-        console.log(note)
+        let note = undefined;
         return algosdk.makePaymentTxnWithSuggestedParams(sender.addr, receiver, amount, undefined, note, params);        
         /*/sign the transaction
         return txn.signTxn(sender.sk);
