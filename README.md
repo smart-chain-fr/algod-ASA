@@ -32,7 +32,7 @@ La fonction atomic transfer va regrouper 3 transactions. Elle prend en paramètr
 Cette fonction ajoute l'image ```filename``` à la blockchain ipfs et nous rend sous forme de string le HASH pour accedé à l'image .
 
 pour verifier que l'image est bien enregistrée (utiliser le lien sur google ou brave):
-    [https://ipfs.io/ipfs/IPFSHASH]
+    https://ipfs.io/ipfs/IPFSHASH
 
 
 ## Fonction création de NFT
