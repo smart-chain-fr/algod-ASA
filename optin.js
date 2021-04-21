@@ -65,8 +65,8 @@ async function Optin(secret_key,assetID) {
 
 function argumentsVerification(secret_key,assetID){
     if (
-        typeof secret_key == 'string' &&  
-        typeof assetID == 'number'
+        typeof secret_key === 'string' &&  
+        typeof assetID === 'number'
     ){
         return 1
     }

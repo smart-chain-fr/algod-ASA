@@ -48,10 +48,10 @@ async function SendASA(send,receiver,assetID,amount) {
 }
 function argumentsVerification(sender, receiver, amount, assetID){
     if (
-        typeof sender == 'string' && 
-        typeof receiver == 'string' && 
-        typeof amount == 'number' &&
-        typeof assetID == 'number'
+        typeof sender === 'string' && 
+        typeof receiver === 'string' && 
+        typeof amount === 'number' &&
+        typeof assetID === 'number'
     ){
         return 1
     }

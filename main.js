@@ -2,7 +2,6 @@ const createAccount = require("./createAccount");
 const createASA = require("./createASA");
 const atomic = require('./atomic')
 const createNFT = require("./createNFT")
-const { sendALGO } = require("./sendALGO");
 const saveFile = require('./saveFile')
 
 async function main() {

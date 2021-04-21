@@ -84,10 +84,10 @@ async function createNFT(secret_key, assetName, unitName, cid) {
 
 function argumentsVerification(secret_key, assetName, unitName,cid){
     if (
-        typeof secret_key == 'string' && 
-        typeof assetName == 'string' && 
-        typeof unitName == 'string' && 
-        typeof cid == 'string'
+        typeof secret_key === 'string' && 
+        typeof assetName === 'string' && 
+        typeof unitName === 'string' && 
+        typeof cid === 'string'
     ){
         return 1
     }

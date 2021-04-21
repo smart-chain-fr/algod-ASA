@@ -40,9 +40,9 @@ async function sendALGO(send, receiver, amount) {
 
 function argumentsVerification(sender, receiver, amount){
     if (
-        typeof sender == 'string' && 
-        typeof receiver == 'string' && 
-        typeof amount == 'number' 
+        typeof sender === 'string' && 
+        typeof receiver === 'string' && 
+        typeof amount === 'number' 
     ){
         return 1
     }

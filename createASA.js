@@ -79,11 +79,11 @@ async function createASA(secret_key, assetName, unitName, total, decimals) {
 
 function argumentsVerification(secret_key, assetName, unitName, total, decimals){
     if (
-        typeof secret_key == 'string' && 
-        typeof assetName == 'string' && 
-        typeof unitName == 'string' && 
-        typeof total == 'number' &&
-        typeof decimals == 'number'
+        typeof secret_key === 'string' && 
+        typeof assetName === 'string' && 
+        typeof unitName === 'string' && 
+        typeof total === 'number' &&
+        typeof decimals === 'number'
     ){
         if (decimals > 0 && decimals < 19) {
             return 1
