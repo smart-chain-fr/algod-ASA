@@ -1,8 +1,8 @@
-const createAccount = require("./createAccount");
-const createASA = require("./createASA");
-const atomic = require('./atomic')
-const createNFT = require("./createNFT")
-const saveFile = require('./saveFile')
+const createAccount = require("./src/createAccount");
+const createASA = require("./src/createASA");
+const atomic = require('./src/atomic')
+const createNFT = require("./src/createNFT")
+const saveFile = require('./src/saveFile')
 
 async function main() {
     //let sk = "curious approve soup whale usage correct bunker smoke brisk nut capital rabbit custom all dial funny autumn concert spatial life copy gallery grass absent vacant"
