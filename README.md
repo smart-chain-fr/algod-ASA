@@ -76,4 +76,4 @@ Pour verifier que l'image est bien enregistrée (utiliser le lien sur un navigat
 ```js
 createNFT.createNFT(sk,"NFTTEST","NFTT",cid)
 ```
-Cette fonction crée un NFT avec une image enregistrée dans IPFS. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `NFTTEST`, le nom d'une unité de ce token `NFTT` et le cid du fichier sauvegardé sur IPFS  `cid` du NFT  sera séparé en deux pour que le l'image soit lié au NFT. La première partie du CID est enregistrée dans le champ ```metadatahash``` (algorand encode ce champ en base64) et la 2e partie est enregistrée dans le champ assetURL (encodé en utf-8).
+Cette fonction crée un NFT avec une image enregistrée dans IPFS. Elle prend en paramètre la clé mnemonique du créateur du token `sk`, le nom du token `NFTTEST`, le nom d'une unité de ce token `NFTT` et le cid du fichier sauvegardé sur IPFS  `cid` du NFT  sera séparé en deux pour que le l'image soit lié au NFT. La première partie du CID est enregistrée dans le champ ```metadatahash``` (algorand encode ce champ en base64) et la 2e partie est enregistrée dans le champ ```assetURL``` (encodé en utf-8).
