@@ -11,7 +11,7 @@ const utils = require('../util/utils')
  * @param {string} unitName - symbol of the token 
  * @param {number} total - supply
  * @param {number} decimals - decimals
- * @return {Object} Asset ID / Transaction ID 
+ * @return {string, string} Asset ID / Transaction ID 
 */
 async function createASA(secret_key, assetName, unitName, total, decimals) {
 
