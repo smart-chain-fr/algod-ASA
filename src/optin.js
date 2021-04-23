@@ -12,7 +12,7 @@ const utils = require('../util/utils')
 async function Optin(secret_key,assetID) {
 
 
-    if(argumentsVerification (secret_key,assetID) == 1){
+    if(argumentsVerification (secret_key,assetID) === 1){
 
         try {
             utils.retrieveBaseConfig()
