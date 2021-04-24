@@ -72,7 +72,7 @@ async function createASA(secret_key, assetName, unitName, total, decimals) {
         return {
             "txId": tx.txId, 
             "ASA_ID": ASA_ID,
-            "confirmed round": confirmedTxn['confirmed-round']
+            "confirmed_round": confirmedTxn['confirmed-round']
         }
     }
 }

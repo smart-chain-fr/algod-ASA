@@ -66,7 +66,7 @@ async function atomic(secret_key, receiver,assetId, amountASA) {
             // Sign the asa transaction
             signed.push(txgroup[2].signTxn(acc.sk))
         }
-        else{
+        else {
             // Sign the asa transaction
             signed.push(txgroup[1].signTxn(acc.sk))
         }
