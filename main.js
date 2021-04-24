@@ -17,7 +17,7 @@ async function main() {
     console.log("new ASA ",newASA)
 
     let atomicTransfer = await atomic.atomic(sk,account,newASA.ASA_ID,10)
-    console.log("atomic transfer ",atomicTransfer)
+    console.log("atomic transfer ", atomicTransfer)
     
     //your file name
     const filename= "image.jpg"
