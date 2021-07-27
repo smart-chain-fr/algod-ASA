@@ -1,6 +1,6 @@
-const config = require('./config/config.js');
+const config = require('../config/config.js');
 const algosdk = require('algosdk');
-const utils = require('./utils')
+const utils = require('../util/utils')
 const { makeAssetCreateTxnWithSuggestedParamsFromObject } = require('algosdk');
 
 /**
@@ -84,10 +84,10 @@ async function createNFT(secret_key, assetName, unitName, cid) {
 
 function argumentsVerification(secret_key, assetName, unitName,cid){
     if (
-        typeof secret_key == 'string' && 
-        typeof assetName == 'string' && 
-        typeof unitName == 'string' && 
-        typeof cid == 'string'
+        typeof secret_key === 'string' && 
+        typeof assetName === 'string' && 
+        typeof unitName === 'string' && 
+        typeof cid === 'string'
     ){
         return 1
     }

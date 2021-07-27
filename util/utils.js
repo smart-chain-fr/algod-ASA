@@ -1,4 +1,4 @@
-const config = require('./config/config.js');
+const config = require('../config/config.js');
 
 /**
  * Ensure that all of the required environment variables are set, throws an error otherwise

@@ -1,6 +1,6 @@
-const config = require('./config/config.js')
+const config = require('../config/config.js')
 const algosdk = require('algosdk')
-const utils = require('./utils')
+const utils = require('../util/utils')
 
 
 /**
@@ -12,7 +12,7 @@ const utils = require('./utils')
 async function Optin(secret_key,assetID) {
 
 
-    if(argumentsVerification (secret_key,assetID) == 1){
+    if(argumentsVerification (secret_key,assetID) === 1){
 
         try {
             utils.retrieveBaseConfig()
@@ -65,8 +65,8 @@ async function Optin(secret_key,assetID) {
 
 function argumentsVerification(secret_key,assetID){
     if (
-        typeof secret_key == 'string' &&  
-        typeof assetID == 'number'
+        typeof secret_key === 'string' &&  
+        typeof assetID === 'number'
     ){
         return 1
     }

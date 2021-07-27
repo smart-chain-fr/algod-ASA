@@ -1,6 +1,6 @@
-const config = require('./config/config.js')
+const config = require('../config/config.js')
 const algosdk = require('algosdk')
-const utils = require('./utils')
+const utils = require('../util/utils')
 
 /**
   * creates a transaction to send ALGO to specified user 
@@ -40,9 +40,9 @@ async function sendALGO(send, receiver, amount) {
 
 function argumentsVerification(sender, receiver, amount){
     if (
-        typeof sender == 'string' && 
-        typeof receiver == 'string' && 
-        typeof amount == 'number' 
+        typeof sender === 'string' && 
+        typeof receiver === 'string' && 
+        typeof amount === 'number' 
     ){
         return 1
     }

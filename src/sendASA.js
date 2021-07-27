@@ -1,6 +1,6 @@
-const config = require('./config/config.js');
+const config = require('../config/config.js');
 const algosdk = require('algosdk');
-const utils = require('./utils');
+const utils = require('../util/utils');
 
 /**
   * Creates a transaction to send the specified ASA to the specified user 
@@ -48,10 +48,10 @@ async function SendASA(send,receiver,assetID,amount) {
 }
 function argumentsVerification(sender, receiver, amount, assetID){
     if (
-        typeof sender == 'string' && 
-        typeof receiver == 'string' && 
-        typeof amount == 'number' &&
-        typeof assetID == 'number'
+        typeof sender === 'string' && 
+        typeof receiver === 'string' && 
+        typeof amount === 'number' &&
+        typeof assetID === 'number'
     ){
         return 1
     }

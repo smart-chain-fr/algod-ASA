@@ -1,6 +1,6 @@
-const config = require('./config/config.js');
+const config = require('../config/config.js');
 const algosdk = require('algosdk');
-const utils = require('./utils')
+const utils = require('../util/utils')
 
 
 /**
@@ -11,7 +11,7 @@ const utils = require('./utils')
  * @param {string} unitName - symbol of the token 
  * @param {number} total - supply
  * @param {number} decimals - decimals
- * @return {Object} Asset ID / Transaction ID 
+ * @return {string, string} Asset ID / Transaction ID 
 */
 async function createASA(secret_key, assetName, unitName, total, decimals) {
 
@@ -72,18 +72,18 @@ async function createASA(secret_key, assetName, unitName, total, decimals) {
         return {
             "txId": tx.txId, 
             "ASA_ID": ASA_ID,
-            "confirmed round": confirmedTxn['confirmed-round']
+            "confirmed_round": confirmedTxn['confirmed-round']
         }
     }
 }
 
 function argumentsVerification(secret_key, assetName, unitName, total, decimals){
     if (
-        typeof secret_key == 'string' && 
-        typeof assetName == 'string' && 
-        typeof unitName == 'string' && 
-        typeof total == 'number' &&
-        typeof decimals == 'number'
+        typeof secret_key === 'string' && 
+        typeof assetName === 'string' && 
+        typeof unitName === 'string' && 
+        typeof total === 'number' &&
+        typeof decimals === 'number'
     ){
         if (decimals > 0 && decimals < 19) {
             return 1
